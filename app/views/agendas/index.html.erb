@@ -1,0 +1,68 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Agendas - ICB</h1>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Apresentar na tela inicial</th>
+      <th>Exige validação extra</th>
+      <th>Observação</th>
+      <th>Tipo</th>
+      <th></th>     
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @agendas.each do |agenda| %>
+      <tr>
+        <td><%= agenda.nome %></td>
+        <td><%= agenda.apresentacaotelaini == true ? "Sim" : "Não" %></td>
+        <td><%= agenda.validaextra == true ? "Sim" : "Não" %></td>
+        <td><%= agenda.observacao %></td>
+        <td><%= agenda.tipo %></td>
+
+        <td><%= link_to 'Equipamentos', consulta_path(agenda), class: 'btn btn-light'  %> </td>
+        <td><%= link_to 'Informações', agenda, class: 'btn btn-primary'  %></td>
+        <td><%= link_to 'Calendário', eventoagenda_path(agenda), class: 'btn btn-success'  %>  </td>
+   
+        <td><%= link_to 'Inscrição', inscricao_path(agenda), class: 'btn btn-light'  %> </td>
+
+        <% if session[:admingeral] == true %>
+            <td><%= link_to 'Inscritos', verinscritos_path(agenda), class: 'btn btn-light'  %></td>    
+            <td><%= link_to 'Editar', edit_agenda_path(agenda), class: 'btn btn-warning' %></td>  
+            <td><%= link_to 'Apagar', agenda, method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'btn btn-danger' %></td> 
+        <% else %>
+          <% @inscricao.each do |i| %>
+            <% if i.agenda_id == agenda.id %>
+              <% if i.usertipo == "Admin" %>
+                  <td><%= link_to 'Inscritos', verinscritos_path(agenda), class: 'btn btn-light'  %></td>    
+                  <td><%= link_to 'Editar', edit_agenda_path(agenda), class: 'btn btn-warning' %></td>          
+                  <td></td>                  
+              <% else %>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              <% end %>  
+            <% end %>                  
+          <% end %>                 
+        <% end %>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if session[:admingeral] == true %>
+  <%= link_to 'Nova Agenda', new_agenda_path, class: 'btn btn-info' %>
+<% end %>

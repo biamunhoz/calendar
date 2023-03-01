@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  data_inicio: 2020-09-10
+  data_fim: 2020-09-10
+  hora_inicio: 2020-09-10 12:41:29
+  hora_fim: 2020-09-10 12:41:29
+  event: one
+
+two:
+  data_inicio: 2020-09-10
+  data_fim: 2020-09-10
+  hora_inicio: 2020-09-10 12:41:29
+  hora_fim: 2020-09-10 12:41:29
+  event: two

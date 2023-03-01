@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  cor: MyString
+  permissaoauto: false
+  observacao: MyText
+  confirmacao: false
+  agendas: one
+
+two:
+  nome: MyString
+  cor: MyString
+  permissaoauto: false
+  observacao: MyText
+  confirmacao: false
+  agendas: two

@@ -1,0 +1,67 @@
+<%= form_with(model: tipo_vinculo, local: true) do |form| %>
+  <% if tipo_vinculo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tipo_vinculo.errors.count, "error") %> prohibited this tipo_vinculo from being saved:</h2>
+
+      <ul>
+      <% tipo_vinculo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :tipoVinculo %>
+    <%= form.text_field :tipoVinculo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :codigoSetor %>
+    <%= form.text_field :codigoSetor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nomeAbreviadSetor %>
+    <%= form.text_field :nomeAbreviadSetor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nomeSetor %>
+    <%= form.text_field :nomeSetor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :codigoUnidade %>
+    <%= form.text_field :codigoUnidade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :siglaUnidade %>
+    <%= form.text_field :siglaUnidade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nomeUnidade %>
+    <%= form.text_field :nomeUnidade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nomeVinculo %>
+    <%= form.text_field :nomeVinculo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nomeAbreviadoFuncao %>
+    <%= form.text_field :nomeAbreviadoFuncao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :usuario_id %>
+    <%= form.text_field :usuario_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

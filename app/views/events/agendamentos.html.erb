@@ -1,0 +1,38 @@
+<h1>Agendamentos</h1>
+
+<table>
+  <tr> <td>Título do Evento: <%=  @eventodoagendamento.title %> </td></tr>
+  <tr> <td>Descrição: <%=  @eventodoagendamento.descricao %> </td></tr>
+  <tr> <td>Registrado para:  <%=  @eventodoagendamento.registropara %> </td></tr>
+  <tr> <td>Sala: <%=  @eventodoagendamento.sala.nome %> </td></tr>
+</table>
+<br>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+  <thead>
+    <tr>
+
+      <th>Data inicial </th>
+      <th>Hora inicial </th>
+      <th>Data final </th>
+      <th>Hora final</th>
+      <th>Excluir</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @agendamentos.each do |a| %>
+      <tr>
+        <td><%= a.data_inicio.strftime("%d/%m/%Y") %></td>
+        <td><%= a.hora_inicio.strftime("%H:%M") %></td>
+        <td><%= a.data_fim.strftime("%d/%m/%Y") %></td>
+        <td><%= a.hora_fim.strftime("%H:%M") %></td>
+        <td><%= link_to 'Excluir', deleteagend_path(a), data: { confirm: 'Essa ação irá apagar somente este agendamento do evento. Você tem certeza ?' }, class: 'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

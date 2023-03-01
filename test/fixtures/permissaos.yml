@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  usuario: one
+  sala: one
+  perfil: one
+
+two:
+  usuario: two
+  sala: two
+  perfil: two

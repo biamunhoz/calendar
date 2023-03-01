@@ -1,0 +1,29 @@
+<!-- <%= link_to 'Novo Evento', new_event_path, class: 'btn btn-info'  %>
+<br>
+<br> -->
+
+<% @dadosagenda.each do |agenda| %>
+    <p><b><%= agenda.nome %></b> - <%= agenda.observacao %> </p> 
+<% end %>
+
+<div id="calendario"></div>
+
+<br>
+
+<table >
+    <% agendaatual = "" %>
+    <% @salasdaagenda.each do |sala|  %>
+        <% if agendaatual == ""  or agendaatual != sala.agenda.nome  %>
+        <tr>
+            <td><b><%= sala.agenda.nome %> </b></td>
+            <% agendaatual = sala.agenda.nome %>
+        </tr> 
+        <tr>
+        <% end %>        
+            <td> <%= link_to 'Marcar', new_event_path(:idsala => sala.id), class: 'btn btn-info'  %>  <%= sala.nome %> <input type="color" id="favcolor" name="favcolor" disabled value="<%= sala.cor %>">  </td>
+        <% if agendaatual == ""  or agendaatual != sala.agenda.nome  %>
+            </tr>
+        <% end %>
+    <% end %>
+    
+</table>

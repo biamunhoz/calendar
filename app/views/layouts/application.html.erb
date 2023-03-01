@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Agendas - ICB</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body data-turbolinks = "false">
+
+    <header>
+    <%# <div id="header-wrap">
+      <h2 align="center"> NOSSAS AGENDAS - ICB </h2>
+    </div> %>
+
+    <div class="topo">
+      <%= link_to image_tag("agenda-cnt.png", alt: "Logotipo do ICB e desenho de calendário") %>
+    </div>
+
+    <div class="titulo">
+      <h4 align="center"> CALENDÁRIO DE EQUIPAMENTOS DOS LABORATÓRIOS - ICB </h4>
+    </div>
+
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black">
+
+      <div class="container-fluid">
+      <% if session[:login] != nil %>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+
+          <li class="navbar-brand mb-0 h1">  <%= link_to "Usuários ", usuarios_path, class: "nav-link" %></li>
+          
+          <% if session[:admingeral] == true %>            
+            <li class="navbar-brand mb-0 h1"> <%= link_to "Perfil ", perfils_path, class: "nav-link" %></li>
+            <li class="navbar-brand mb-0 h1"> <%= link_to "Relatório ", relgeral_path, class: "nav-link" %></li>
+          <% end %>
+          
+          <li class="navbar-brand mb-0 h1"> <%= link_to "Agendas ", agendas_path, class: "nav-link" %></li>
+          <li class="navbar-brand mb-0 h1"> <%= link_to "Minhas agendas - Eventos ", events_path, class: "nav-link" %></li>
+          <li class="navbar-brand mb-0 h1"> <%= link_to "Equipamentos ", salas_path, class: "nav-link" %></li>
+          <li class="navbar-brand mb-0 h1"> <%= link_to "Sair " , logout_path, class: "nav-link" %></li>
+        </ul>
+        </div>  
+      <% end %>
+      </div>  
+    </nav>
+
+    <% if notice.present? %>
+      <div class="alert alert-info">
+        <%= notice  %>
+      </div>
+    <% end %>
+
+    <div class="container-fluid">
+      <% if session[:login] != nil %>
+        <p>Você está logado com o usuário: <b><%= session[:login] %></b> </p>
+      <% end %>
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

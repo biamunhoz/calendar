@@ -1,0 +1,37 @@
+<h1>Minhas Agendas ICB</h1>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Agenda</th>
+      <th>Usuário</th>
+      <th>Status da inscrição</th>
+      <th>Data da inscrição</th>
+      <th>Tipo de Usuário</th>
+      <% if session[:admingeral] == true or @souadmin == true %>
+        <th colspan="2">Alterar status</th>
+        <th>Tipo de Usuário </th>
+      <% end %>     
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @insc.each do |ins| %>
+      <tr>
+        <td><%= ins.agenda.nome %></td>
+        <td><%= ins.usuario.nomeUsuario %></td>
+        <td><%= ins.tipo %></td>
+        <td><%= ins.created_at.strftime("%d/%m/%Y")  %> </td>
+        <td><%= ins.usertipo %></td>
+        <% if session[:admingeral] == true or @souadmin == true %>
+          <td><%= link_to 'Negar', alternegar_path(:id => ins.id), class: 'btn btn-danger' %> </td>
+          <td><%= link_to 'Inscrever', alterinscrito_path(:id => ins.id), class: 'btn btn-success' %> </td>        
+          <td><%= link_to 'Trocar', alterusertipo_path(:id => ins.id), class: 'btn btn-info' %> </td>
+        <% end %>                
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+

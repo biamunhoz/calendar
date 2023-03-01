@@ -1,0 +1,98 @@
+<%= form_with(model: sala, local: true) do |form| %>
+  <% if sala.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sala.errors.count, "error") %> prohibited this equipamento from being saved:</h2>
+
+      <ul>
+      <% sala.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nome, "Nome" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cor, "Cor de identificação" %>
+    <%= form.color_field :cor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :permissaoauto, "Permissão automática" %>
+    <%= form.check_box :permissaoauto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :observacao, "Observação" %>
+    <%= form.text_area :observacao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :confirmacao, "Evento necessita ser confirmado ?" %>
+    <%= form.check_box :confirmacao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avisoadmhoravaga, "Avisar administradores, caso de eventos desmarcados ?" %>
+    <%= form.check_box :avisoadmhoravaga %>
+  </div>
+
+  <div class="field">
+    <%= form.label :limiteqtdeuso, "Limitar quantidade de uso diária" %>
+    <%= form.check_box :limiteqtdeuso %>
+  </div>
+
+  <div class="field">
+    <%= form.label :limitehoras, "Horas" %>
+    <%= form.number_field :limitehoras, max: 8, min: 0 %>
+  </div>
+
+  <div class="field">
+      <%= form.label :bloqforaintervalo, "Bloquear fora do intervalo" %>
+      <%= form.check_box :bloqforaintervalo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prihoraini, "Primeiro horário inicial" %>
+    <%= form.time_select :prihoraini , {:default => {:hour => '08', :minute => '00'}}%>
+  </div>
+
+  <div class="field">
+    <%= form.label :prihorafim, "Primeiro horário final" %>
+    <%= form.time_select :prihorafim, {:default => {:hour => '12', :minute => '00'}} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seghoraini, "Segundo horário inicial" %>
+    <%= form.time_select :seghoraini, {:default => {:hour => '14', :minute => '00'}} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seghorafim, "Segundo horário final" %>
+    <%= form.time_select :seghorafim, {:default => {:hour => '17', :minute => '00'}} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valorinterval, "Valor do intervalo entre as horas" %>
+    <%= form.number_field :valorinterval, max: 60, min: 1 %> (em minutos)
+  </div>
+
+  <div class="field">
+    <%= form.label :disablefds, "Desabilitar fim de semana/feriado" %>
+    <%= form.check_box :disablefds %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :agenda_id, "Vincular na agenda" %>
+    <%= form.select("agenda_id", Agenda.all.collect {|a| [ a.nome, a.id ] })  %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Salvar" %>
+  </div>
+<% end %>

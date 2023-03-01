@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sala/Equipamento:</strong>
+  <%= @event.sala.nome %>
+</p>
+
+<p>
+  <strong>Título:</strong>
+  <%= @event.title %>
+</p>
+
+<p>
+  <strong>Descrição:</strong>
+  <%= @event.descricao %>
+</p>
+
+<p>
+  <strong>Registrado para:</strong>
+  <%= @event.registropara %>
+</p>
+
+<p>
+  <strong>Data/Hora inicial:</strong>
+  <%= @event.start_date.strftime("%d/%m/%Y") + " - " + @event.timeini.strftime("%H:%M")   %>
+</p>
+
+<p>
+  <strong>Data/Hora final:</strong>
+  <%= @event.end_date.strftime("%d/%m/%Y") + " - " + @event.timefim.strftime("%H:%M") %>
+</p>
+
+
+<% if session[:admingeral] == true %>
+  <%= link_to 'Editar', edit_event_path(@event), class: 'btn btn-warning' %> |
+<% end %>
+<%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

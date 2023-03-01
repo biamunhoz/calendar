@@ -1,0 +1,104 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @sala.nome %>
+</p>
+
+<p>
+  <strong>Cor:</strong>
+  <input type="color" id="favcolor" name="favcolor" disabled value="<%= @sala.cor %>">
+</p>
+
+<p>
+  <strong>Permissão Automática:</strong>
+  <%= @sala.permissaoauto == true ? "Sim" : "Não" %>
+</p>
+
+<p>
+  <strong>Observação:</strong>
+  <%= @sala.observacao %>
+</p>
+
+<p>
+  <strong>Confirmação:</strong>
+  <%= @sala.confirmacao == true ? "Exige confirmar" : "Não exige confirmar" %>
+</p>
+
+<p>
+  <strong>Avisar horário vago:</strong>
+  <%= @sala.avisoadmhoravaga == true ? "Sim" : "Não" %>
+</p>
+
+<p>
+  <strong>Tem limite de quantidade de uso (Horas):</strong>
+  <% if @sala.limiteqtdeuso == true %>
+    <p>
+      <strong>Horas:</strong>
+      <%= "Sim, o limite definido é: " + @sala.limitehoras.to_s %>
+    </p>  
+  <% else %>  
+    Não
+  <% end %>
+
+</p>
+
+<p>
+  <strong>Bloquear fora dos intervalos especificados:</strong>
+  <%= @sala.bloqforaintervalo == true ? "Sim" : "Não"  %>
+</p>
+
+<p>
+  <strong>Primeiro horário inicial:</strong>
+  <%= @sala.prihoraini.strftime("%H:%M")  %>
+</p>
+
+<p>
+  <strong>Primeiro horário final:</strong>
+  <%= @sala.prihorafim.strftime("%H:%M")  %>
+</p>
+
+<p>
+  <strong>Segundo horário inicial:</strong>
+  <%= @sala.seghoraini.strftime("%H:%M")  %>
+</p>
+
+<p>
+  <strong>Segundo horário final:</strong>
+  <%= @sala.seghorafim.strftime("%H:%M")  %>
+</p>
+
+
+<p>
+  <strong>Valor do intervalo entre as horas:</strong>
+  <%= @sala.valorinterval %>
+</p>
+
+<p>
+  <strong>Bloquear fora dos intervalos especificados:</strong>
+  <%= @sala.bloqforaintervalo == true ? "Sim" : "Não"  %>
+</p>
+
+
+<% if @sala.limiteqtdeuso == true %>
+  <p>
+    <strong>Horas:</strong>
+    <%= @sala.limitehoras  %>
+  </p>
+<% end %>
+
+<p>
+  <strong>Desabilitar fim de semana/feriado:</strong>
+  <%= @sala.disablefds == true ? "Sim" : "Não"  %>
+</p>
+
+<p>
+  <strong>Agendas:</strong>
+  <%= @sala.agenda.nome %>
+</p>
+
+<% if session[:admingeral] == true %>
+  <%= link_to 'Editar', edit_sala_path(@sala), class: 'btn btn-warning' %> |
+<% end %>
+
+<%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

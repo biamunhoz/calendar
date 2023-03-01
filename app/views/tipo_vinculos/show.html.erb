@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Vínculo:</strong>
+  <%= @tipo_vinculo.tipoVinculo %>
+</p>
+
+<p>
+  <strong>Cód. do setor:</strong>
+  <%= @tipo_vinculo.codigoSetor %>
+</p>
+
+<p>
+  <strong>Nome abreviado do setor:</strong>
+  <%= @tipo_vinculo.nomeAbreviadSetor %>
+</p>
+
+<p>
+  <strong>Nome do setor:</strong>
+  <%= @tipo_vinculo.nomeSetor %>
+</p>
+
+<p>
+  <strong>Cód. Unidade:</strong>
+  <%= @tipo_vinculo.codigoUnidade %>
+</p>
+
+<p>
+  <strong>Sigla:</strong>
+  <%= @tipo_vinculo.siglaUnidade %>
+</p>
+
+<p>
+  <strong>Unidade:</strong>
+  <%= @tipo_vinculo.nomeUnidade %>
+</p>
+
+<p>
+  <strong>Vínculo:</strong>
+  <%= @tipo_vinculo.nomeVinculo %>
+</p>
+
+<p>
+  <strong>Função:</strong>
+  <%= @tipo_vinculo.nomeAbreviadoFuncao %>
+</p>
+
+<p>
+  <strong>Usuário:</strong>
+  <%= @tipo_vinculo.usuario %>
+</p>
+
+<%= link_to 'Editar', edit_tipo_vinculo_path(@tipo_vinculo) %> |
+<%= link_to 'Voltar', tipo_vinculos_path %>

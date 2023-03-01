@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Perfil:</strong>
+  <%= @perfil.nomeperfil %>
+</p>
+
+<%= link_to 'Editar', edit_perfil_path(@perfil), class: 'btn btn-warning' %> |
+<%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

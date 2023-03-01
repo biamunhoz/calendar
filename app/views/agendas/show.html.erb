@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @agenda.nome %>
+</p>
+
+<p>
+  <strong>Apresentar na tela inicial:</strong>
+  <%= @agenda.apresentacaotelaini == true ? "Sim" : "Não" %>
+</p>
+
+<p>
+  <strong>Exige validação extra:</strong>
+  <%= @agenda.validaextra == true ? "Sim" : "Não" %>
+</p>
+
+<p>
+  <strong>Observação:</strong>
+  <%= @agenda.observacao %>
+</p>
+
+<p>
+  <strong>Tipo de agenda:</strong>
+  <%= @agenda.tipo %>
+</p>
+
+<% if session[:admingeral] == true %> 
+  <%= link_to 'Editar', edit_agenda_path(@agenda) %> |
+<% end %>
+<%= link_to 'Voltar', :back %>

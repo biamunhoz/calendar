@@ -1,0 +1,71 @@
+<%= form_tag(relgeral_path, method: "get") do  %>
+
+    <h2>Consulta geral de eventos </h2>
+    <br>
+    <p>De: escolha a data
+      <%= date_field_tag :valorde %>    
+    </p>
+
+    <p>Até: escolha a data
+      <%= date_field_tag :valorate %>    
+    </p>
+
+    <p> Marcado <%= radio_button_tag :marcado, false %> ou Desmarcado  <%= radio_button_tag :marcado, true %> </p>
+    <p> </p>
+
+    <p> <%= label_tag(:sala,  "Escolha a sala") %>
+      <%= select_tag :sala, options_from_collection_for_select(Sala.where(" id in (?)", carregarsalas), :id, :nome), class: 'chosen-select' %> 
+    </p>
+
+    <%= submit_tag "Enviar", class:"btn btn-default" %>
+
+<% end %>
+
+<br>
+
+<h3>Relatório geral </h3>
+<br>
+<table  class="table table-bordered">
+  <thead>
+  <tr>
+    <th class="text-center"> Equipamento </th>
+    <th class="text-center"> Título </th>
+    <th class="text-center"> Data inicial </th>
+    <th class="text-center"> Hora inicial </th>
+    <th class="text-center"> Data final </th>
+    <th class="text-center"> Hora final </th>
+    <th class="text-center"> Descrição </th>
+    <th class="text-center"> Marcado por </th>
+
+  </tr>
+  </thead>
+  <tbody>
+
+  <% if @resultado == nil or @de == nil %>
+    <h5>Nenhum dado foi encontrado ou selecionado </h5>
+  <% else %>
+
+    <% if @tipomarcacao == false %>
+        <h5> Resultado da consulta: Eventos Marcados</h5>
+    <% else %>
+        <h5> Resultado da consulta: Eventos Desmarcados</h5>
+    <% end %>
+
+    <h5>De <%= Date.parse(@de).strftime("%d/%m/%Y") %> até <%= Date.parse(@ate).strftime("%d/%m/%Y") %> </h5>
+
+    <% @resultado.each do |res| %>
+    <tr>
+        <td><%= res.nome %></td>
+        <td><%= res.title %></td>
+        <td><%= res.start_date.strftime("%d/%m/%Y") %></td>
+        <td><%= res.timeini.strftime("%H:%M") %></td>
+        <td><%= res.end_date.strftime("%d/%m/%Y") %></td> 
+        <td><%= res.timefim.strftime("%H:%M") %></td>
+        <td><%= res.descricao %></td>
+        <td><%= res.nomeUsuario %></td>
+    </tr>
+    <% end %>
+  <% end %>
+  
+  </tbody>
+</table>

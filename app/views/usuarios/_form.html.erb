@@ -1,0 +1,82 @@
+<%= form_with(model: usuario, local: true) do |form| %>
+  <% if usuario.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(usuario.errors.count, "error") %> prohibited this usuario from being saved:</h2>
+
+      <ul>
+      <% usuario.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if usuario.tipoUsuario == "EXTERNO" %>
+
+    <div class="field">
+      <%= form.label :nomeUsuario, "Nome completo" %>
+      <%= form.text_field :nomeUsuario %>
+    </div>
+
+    <div class="field">
+      <%= form.label :numeroTelefoneFormatado, "Telefone celular" %>
+      <%= form.text_field :numeroTelefoneFormatado %>
+    </div>
+  <% else %>
+
+    <div class="field">
+      Nome completo
+      <%= usuario.nomeUsuario %>
+    </div>
+
+    <div class="field">
+      Telefone 
+      <%= usuario.numeroTelefoneFormatado %>
+    </div>
+
+  <% end %>
+
+  <div class="field">
+    <%= form.label :tel_contato, "Outro telefone de contato" %>
+    <%= form.text_field :tel_contato %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cpf, "CPF" %>
+    <%= form.text_field :cpf %>
+  </div>
+
+  <div class="field">
+    <%= form.label :endereco, "Endereço" %>
+    <%= form.text_field :endereco %>
+  </div>
+
+
+  <% if usuario.tipoUsuario == "EXTERNO" %>
+
+    <div class="field">
+      <%= form.label :emailPrincipalUsuario, "E-mail" %>
+      <%= form.text_field :emailPrincipalUsuario %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password_digest, "Senha" %>
+      <%= form.password_field :password %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password_confirmation, "Confirme a senha" %> 
+      <%= form.password_field :password_confirmation %>
+    </div>
+  <% else %>
+    <div class="field">
+      E-mail principal:
+      <%= usuario.emailPrincipalUsuario %>
+    </div>
+
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit "Salvar" %>
+  </div>
+<% end %>
