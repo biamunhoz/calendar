@@ -195,6 +195,25 @@ class EventsController < ApplicationController
       end_time = @sala.seghorafim.to_i
       @values = (start_time..end_time).step(@sala.valorinterval.minutes).select{|t| t <= start_interval || t >= end_interval }
       @valuesfim = (start_time..end_time).step(@sala.valorinterval.minutes - 1).select{|t| t <= start_interval || t >= end_interval }
+
+      @valuesfim.each do |hora|
+        #print "-----"
+        #print Time.at(hora).utc.to_datetime.strftime("%H:%M")
+
+        if Time.at(hora).utc.to_datetime.strftime("%H:%M") == (@sala.prihorafim - 1).strftime("%H:%M")
+          #Inclui a ultima hora do primeiro intervalo
+          @valuesfim[@valuesfim.index(hora)] << @sala.prihorafim.to_i + (@sala.valorinterval.minutes - 1)
+        end 
+
+        if Time.at(hora).utc.to_datetime.strftime("%H:%M") == @sala.prihoraini.strftime("%H:%M")
+          #Apaga a primeira hora definida
+          @valuesfim.delete_at(@valuesfim.index(hora))
+        end 
+      end 
+     
+      #Inclui a ultima hora definida
+      @valuesfim << @sala.seghorafim 
+
     else
       start_time = DateTime.parse("0 AM").to_i
       start_interval = DateTime.parse("11:55 AM").to_i
@@ -226,6 +245,25 @@ class EventsController < ApplicationController
       end_time = @sala.seghorafim.to_i
       @values = (start_time..end_time).step(@sala.valorinterval.minutes).select{|t| t <= start_interval || t >= end_interval }
       @valuesfim = (start_time..end_time).step(@sala.valorinterval.minutes - 1).select{|t| t <= start_interval || t >= end_interval }
+
+      @valuesfim.each do |hora|
+        #print "-----"
+        #print Time.at(hora).utc.to_datetime.strftime("%H:%M")
+
+        if Time.at(hora).utc.to_datetime.strftime("%H:%M") == (@sala.prihorafim - 1).strftime("%H:%M")
+          #Inclui a ultima hora do primeiro intervalo
+          @valuesfim[@valuesfim.index(hora)] << @sala.prihorafim.to_i + (@sala.valorinterval.minutes - 1)
+        end 
+
+        if Time.at(hora).utc.to_datetime.strftime("%H:%M") == @sala.prihoraini.strftime("%H:%M")
+          #Apaga a primeira hora definida
+          @valuesfim.delete_at(@valuesfim.index(hora))
+        end 
+      end 
+     
+      #Inclui a ultima hora definida
+      @valuesfim << @sala.seghorafim 
+
     else
       start_time = DateTime.parse("0 AM").to_i
       start_interval = DateTime.parse("11:55 AM").to_i
@@ -310,7 +348,7 @@ class EventsController < ApplicationController
           format.html { redirect_to @event, notice: 'Evento foi criado com sucesso.' }
           format.json { render :show, status: :created, location: @event }
         else
-          format.html { redirect_to events_url, notice: 'Evento não pode ser marcado, por favor consulte se não conflita com outro horário reservado ou se o dia é permitido.' }
+          format.html { redirect_to events_url, notice: @event.errors.messages }
           format.json { render json: @event.errors, status: :unprocessable_entity }
         end 
       end      
@@ -386,7 +424,7 @@ class EventsController < ApplicationController
         format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @event }
       else
-        format.html { redirect_to events_url, notice: 'Evento não pode ser marcado, por favor consulte se não conflita com outro horário já reservado.' }
+        format.html { redirect_to events_url, notice: @event.errors.messages }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end

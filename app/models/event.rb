@@ -47,7 +47,7 @@ class Event < ApplicationRecord
     def tempolimite
       
       if self.sala_id == nil
-        errors.add(:sala_id, "Por favor, escolha uma sala")  
+        errors.add(:sala, "Evento não pode ser marcado. Por favor, escolha uma sala")  
       else 
         @sala = Sala.find_by(id: self.sala_id)
 
@@ -63,8 +63,28 @@ class Event < ApplicationRecord
           tempo = horafim - horaini
   
           if tempo > valorlimite
-            errors.add(:timefim, "Há um limite de tempo definido, favor agendar com no máximo " + valorlimite.to_s + " minutos de uso.")
+            errors.add(:Data_Final, "Evento não pode ser marcado. Há um limite de tempo definido, favor agendar com no máximo " + valorlimite.to_s + " minutos de uso por dia.")
           end
+          
+          #tem outros registros ao longo do dia?
+          tempototal = tempo 
+
+          @outroseventos = Event.where(sala_id: self.sala_id).where(" desmarcado = false and start_date = ? or end_date = ? and usuario_id = ?" , self.start_date, self.end_date, self.usuario_id)
+
+          @outroseventos.each do |outroevent|
+
+            horaini = (outroevent.timeini.hour * 60) + outroevent.timeini.min
+            horafim = (outroevent.timefim.hour * 60) + outroevent.timefim.min
+            
+            tempo = horafim - horaini
+
+            tempototal = tempototal + tempo 
+          end
+
+          if tempototal > valorlimite
+            errors.add(:Data_Final, "Evento não pode ser marcado. Há um limite de tempo definido, favor agendar com no máximo " + valorlimite.to_s + " minutos de uso por dia.")
+          end
+
         end
       end
 

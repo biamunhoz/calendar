@@ -16,6 +16,8 @@ class SalasController < ApplicationController
 
     @negados = Usuario.joins(:tipo_vinculos).where('usuarios.id not in (?)', @usuarios).select("usuarios.id, nomeUsuario, emailUspUsuario, tipoVinculo, nomeSetor, siglaUnidade")
 
+    @negadosext = Usuario.where('id not in (?)', @usuarios).select(" id, nomeUsuario, emailUspUsuario ")
+    
   end 
 
   def salvaperfil(perfil, sala, user)

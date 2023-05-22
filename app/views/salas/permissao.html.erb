@@ -53,6 +53,21 @@
         </tr>
     <% end %>
   </tbody>
+
+  <tbody>
+    <% @negadosext.each do |n| %>
+        <tr>
+            <td><%= n.nomeUsuario %> </td>
+            <td> </td>
+            <td><%= n.emailUspUsuario %> </td>
+            <td></td>
+            <td><%= link_to 'Admin', addadmin_path(:id => n.id, :sala => @sala_atual), class: 'btn btn-info' %> </td>
+            <td><%= link_to 'Supervisor', altersuper_path(:id => n.id, :sala => @sala_atual), class: 'btn btn-warning' %> </td>
+            <td><%= link_to 'Simples', altersimples_path(:id => n.id, :sala => @sala_atual), class: 'btn btn-danger' %> </td>            
+        </tr>
+    <% end %>
+  </tbody>
+
 </table> 
 
 <%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>
