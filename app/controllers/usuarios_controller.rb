@@ -1,6 +1,6 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
-  before_action :autenticado?, only: [:show, :edit, :update, :destroy]
+  before_action :autenticado?, only: [:show, :edit, :update, :destroy, :index]
 
   # GET /usuarios
   # GET /usuarios.json

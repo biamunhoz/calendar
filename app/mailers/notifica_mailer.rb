@@ -65,7 +65,20 @@ class NotificaMailer < ApplicationMailer
     @user = Usuario.find_by(id: usuarioid)
     @evento = Event.find_by(id: eventoid)
 
-    mail to: @user.emailPrincipalUsuario, subject: "Informação de status do evento cadastrado"
+    mail to: @user.emailPrincipalUsuario, subject: "Informação do status do evento cadastrado"
+
+  end
+
+  def notificaadmineventonegado(eventoid, idadmin, status)
+    
+    @status = status
+    @user = Usuario.find_by(id: idadmin)
+    @evento = Event.find_by(id: eventoid)
+    
+    @userdoevento = Usuario.find_by(id: @evento.usuario_id)
+
+
+    mail to: @user.emailPrincipalUsuario, subject: "Informação do status do evento cadastrado"
 
   end
 
@@ -94,14 +107,21 @@ class NotificaMailer < ApplicationMailer
 
     @salasx.each do |s| 
 
-      @super = Permissao.where(perfil_id: 2, sala_id: s.id)
+      @super = Permissao.where(perfil_id: [2, 1], sala_id: s.id)
 
       @super.each do |su|
 
         @usersuper = Usuario.find_by(id: su.usuario_id)
 
-        mail to: @usersuper.emailPrincipalUsuario, cc: @user.emailPrincipalUsuario, subject: "Permissão de usuário - Agenda"
+        #mail to:,  subject: "Permissão de usuário - Agenda"
+
+        mail(:to =>  @usersuper.emailPrincipalUsuario, :subject => "Permissão de usuário - Agenda") do |format|
+          format.text 
+          format.html 
+        end
+
       end
+
     end
     
   end

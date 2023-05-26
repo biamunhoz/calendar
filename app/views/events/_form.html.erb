@@ -20,25 +20,27 @@
 
   </div-->
 
+  <h4><i> O administrador da agenda reserva-se o direito de analisar as informações fornecidas no agendamento. Em caso de qualquer irregularidade ou impedimento relacionado ao equipamento, o agendamento poderá ser cancelado. </i> </h3>
+
+  <br>
   <div class="form-group">
-    <%= form.label :sala_id, "Equipamento escolhido: " %><br>
+    <%= form.label :sala_id, "Equipamento escolhido: " %> <%= @sala.nome + " - " + @sala.observacao  %>
     <%= form.hidden_field :sala_id, value: @sala.id, class: 'form-control' %>
-    <%= @sala.nome + " - " + @sala.observacao  %>
   </div>
 
   <div class="field">
-    <%= form.label :title, "Título" %>
-    <%= form.text_field :title, size:30 %>
+    <%= form.label :title, "Título do agendamento" %>
+    <%= form.text_field :title, size:40, placeholder: "Informação de destaque na agenda" %>
   </div>
 
   <div class="field">
     <%= form.label :registropara, "Registrar para" %>
-    <%= form.text_field :registropara, size:30 %>
+    <%= form.text_field :registropara, size:30, placeholder: "Nome do usuário" %>
   </div>
 
   <div class="field">
     <%= form.label :descricao, "Descrição" %>
-    <%= form.text_field :descricao, size:35  %>
+    <%= form.text_field :descricao, size:35, placeholder: "Experimento, procedimento ou uso"  %>
   </div>
 
   <div class="field">

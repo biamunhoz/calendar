@@ -31,6 +31,15 @@ class EventsController < ApplicationController
 
   end
 
+  def resultagenda
+    
+    #considerar aqui as permissões 
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("desmarcado = false and sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,events.timeini, ' até ', events.timefim) as title, 
+    events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
+    agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
+
+  end
+
   def confirmarevento
 
     @event = Event.find_by(:id => params[:id])
@@ -49,14 +58,25 @@ class EventsController < ApplicationController
     @event = Event.find_by(:id => params[:id])
 
     NotificaMailer.eventopendente(@event.id, @event.usuario_id, "Negado").deliver_now!
+        
+    @adminesuper = Permissao.where(perfil_id: [2, 1], sala_id: @event.sala_id)
+
+    @adminesuper.each do |su|
+
+      @usersuper = Usuario.find_by(id: su.usuario_id)
+      NotificaMailer.notificaadmineventonegado(@event.id, @usersuper.id, "Negado").deliver_now!
+
+    end 
+
 
     @event.destroy
-
+    
     redirect_to events_url, notice: 'Evento negado'
 
   end
 
   def carrega_salas
+
 
     @permissao = Permissao.where(usuario_id: current_user.id)
 
@@ -66,7 +86,6 @@ class EventsController < ApplicationController
     end
 
     @salas = Sala.where(" id in (?) ", salaspermitidas)
-
   end 
 
   def salaspermitidas
@@ -103,22 +122,16 @@ class EventsController < ApplicationController
   def eventoagenda
    
     @agendasel = params[:id]
-    #@@salamostrar = salaselecionada(params[:id])
-    @@salamostrar = salaselecionada(@agendasel)
+
+    #@@salamostrar = salaselecionada(@agendasel)
+    #@salasdaagenda = Sala.where(:agenda_id => @agendasel)
     
-    @dadosagenda = Agenda.where(:id => @agendasel)
-    
-    @salasdaagenda = Sala.where(:agenda_id => @agendasel)
+    @@salamostrar = salaspermitidas    
+    @dadosagenda = Agenda.where(:id => @agendasel)   
+    @salasdaagenda = Sala.where(:id => salaspermitidas)
+
     
   end 
-
-  def resultagenda
-    
-    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("desmarcado = false and sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,events.timeini, ' até ', events.timefim) as title, 
-    events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
-    agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
-
-  end
 
   def agendamentos
 
@@ -220,7 +233,7 @@ class EventsController < ApplicationController
       end_interval = DateTime.parse("12 PM").to_i
       end_time = DateTime.parse("23:55 PM").to_i
       @values = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
-      @valuesfim = (start_time..end_time).step(4.minutes).select{|t| t <= start_interval || t >= end_interval }
+      @valuesfim = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
     end
 
     @event = Event.new
@@ -270,7 +283,7 @@ class EventsController < ApplicationController
       end_interval = DateTime.parse("12 PM").to_i
       end_time = DateTime.parse("23:55 PM").to_i
       @values = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
-      @valuesfim = (start_time..end_time).step(4.minutes).select{|t| t <= start_interval || t >= end_interval }
+      @valuesfim = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
     end
  
     @salas = salaspermitidas
@@ -343,10 +356,14 @@ class EventsController < ApplicationController
           if bEnviaEmailConfirmacao == true
             NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
             NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
-          end
 
-          format.html { redirect_to @event, notice: 'Evento foi criado com sucesso.' }
-          format.json { render :show, status: :created, location: @event }
+            format.html { redirect_to @event, notice: 'Evento foi cadastrado com sucesso. Sujeito a avaliação dos administradores, aguarde confirmação.' }
+            format.json { render :show, status: :created, location: @event }
+
+          else 
+            format.html { redirect_to @event, notice: 'Evento foi criado com sucesso.' }
+            format.json { render :show, status: :created, location: @event }
+          end
         else
           format.html { redirect_to events_url, notice: @event.errors.messages }
           format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -419,10 +436,15 @@ class EventsController < ApplicationController
         if bEnviaEmailConfirmacao == true
           NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
           NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
+
+          format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso. Sujeito a avaliação dos administradores, aguarde confirmação.' }
+          format.json { render :show, status: :created, location: @event }
+
+        else 
+          format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso.' }
+          format.json { render :show, status: :created, location: @event }
         end
         
-        format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso.' }
-        format.json { render :show, status: :ok, location: @event }
       else
         format.html { redirect_to events_url, notice: @event.errors.messages }
         format.json { render json: @event.errors, status: :unprocessable_entity }

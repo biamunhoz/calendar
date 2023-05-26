@@ -36,6 +36,7 @@ module WelcomeHelper
 
   def carrega_salas
 
+    print "*********************************"
     @permissao = Permissao.where(usuario_id: current_user.id)
 
     salaspermitidas = Array.new
@@ -43,7 +44,12 @@ module WelcomeHelper
       salaspermitidas << p.sala_id
     end
 
-    @salas = Sala.where(" id in (?) ", salaspermitidas)
+    if session[:admingeral] == true
+      @salas = Sala.all
+    else 
+      @salas = Sala.where(" id in (?) ", salaspermitidas)
+    end 
+    
 
   end 
 

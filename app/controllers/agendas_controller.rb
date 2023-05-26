@@ -40,8 +40,9 @@ class AgendasController < ApplicationController
             @insc.save!
   
             NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
-            @confirmado = false
 
+            @confirmado = false
+            print "Aqui 1**********************"
           else
 
             @insc = Inscricao.new
@@ -54,6 +55,7 @@ class AgendasController < ApplicationController
             NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
             addpermissao(@agenda, current_user.id)
             @confirmado = true
+            print "Aqui 2*************************"
           end 
 
         else
@@ -67,10 +69,13 @@ class AgendasController < ApplicationController
 
           NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
           @confirmado = false
+
+          print "Aqui 3**************************"
         end
 
       else
-        @confirmado = false
+        @confirmado = true
+        print "Aqui 4 ***********************"
       end
 
     end  

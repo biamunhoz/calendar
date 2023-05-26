@@ -1,10 +1,5 @@
 <% if @confirmado == true %>
-    <h1>Inscrito!</h1>
+    <h1>Inscrição na agenda realizada!</h1>
 <% else %>
-    <% if @tipoagenda.tipo == "Privada" %>
-        <h1>Pedido de inscrição foi feito com sucesso. Inscrição pendente aguardando manifestação do supervisor </h1>
-    <% else %>
-        <h1>Inscrição feita anteriormente!</h1>
-    <% end %>
-        
+    <h1>Pedido de inscrição foi feito com sucesso. Inscrição pendente aguardando manifestação do supervisor.</h1>
 <% end %>   

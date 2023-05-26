@@ -10,7 +10,7 @@
       <th>Exige validação extra</th>
       <th>Observação</th>
       <th>Tipo</th>
-      <th></th>     
+      <th>Inscrição</th>     
       <th></th>
       <th></th>
       <th></th>
@@ -30,11 +30,13 @@
         <td><%= agenda.observacao %></td>
         <td><%= agenda.tipo %></td>
 
+        <td><%= link_to 'Inscrever-se', inscricao_path(agenda), class: 'btn btn-info'  %> </td>
+
         <td><%= link_to 'Equipamentos', consulta_path(agenda), class: 'btn btn-light'  %> </td>
-        <td><%= link_to 'Informações', agenda, class: 'btn btn-primary'  %></td>
+        <td><%= link_to 'Informações', agenda, class: 'btn btn-light'  %></td>
         <td><%= link_to 'Calendário', eventoagenda_path(agenda), class: 'btn btn-success'  %>  </td>
    
-        <td><%= link_to 'Inscrição', inscricao_path(agenda), class: 'btn btn-light'  %> </td>
+        
 
         <% if session[:admingeral] == true %>
             <td><%= link_to 'Inscritos', verinscritos_path(agenda), class: 'btn btn-light'  %></td>    
