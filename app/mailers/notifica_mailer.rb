@@ -1,6 +1,14 @@
 class NotificaMailer < ApplicationMailer
 
-
+  def senha_reset(usuario)
+    @usuario = usuario
+    mail({
+             to: @usuario.emailPrincipalUsuario,
+             subject: "Alteração de senha",
+             date: Time.now
+         })
+  end
+  
   def avisohorariovago(email, ini, fim, nomesala, nomeuser)
     
     @ini = ini 

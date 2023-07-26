@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :salas, path: 'equipamentos'
   resources :agendas
   resources :events
+  resources :senha_resets
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   #inscricao e permissao

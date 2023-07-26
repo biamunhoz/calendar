@@ -1,4 +1,4 @@
-<h3> Login </h3>
+<h3> Login Externo </h3>
 <%= form_for :session, url: login_ext_path do |f| %>
     <div class="form-group">
       <%= f.label :email, 'E-mail' %>
@@ -15,7 +15,10 @@
     </div>
 <% end %>
 
-<p><%= link_to "Registrar-se", new_usuario_path, class: 'btn btn-info' %> | <%= link_to "Login com senha unica", login_path, class: 'btn btn-warning' %></p>
+<p><%= link_to "Registrar-se", new_usuario_path, class: 'btn btn-info' %> | <%= link_to "Esqueci minha senha", new_senha_reset_path, class: 'btn btn-success' %>
+
+<hr>
+<%= link_to "Login com senha única", login_path, class: 'btn btn-warning' %></p>
 
 <p></p>
 

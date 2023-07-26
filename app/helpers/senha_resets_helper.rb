@@ -1,0 +1,2 @@
+module SenhaResetsHelper
+end

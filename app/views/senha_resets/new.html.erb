@@ -1,0 +1,17 @@
+<fieldset>
+  <legend> Esqueci minha senha - Somente usuários externos </legend>
+
+  <%= form_tag senha_resets_path, :method => :post do %>
+      <div class="form-group">
+        <%= label_tag "Digite seu e-mail cadastrado" %>
+        <%= text_field_tag :email, params[:email], class:'form-control' %>
+      </div>
+
+      <div class="actions">
+        <%= submit_tag "Enviar", class:'btn btn-primary active'  %>
+      </div>
+  <% end %>
+
+  <p><b>Não é válido para usuários cadastrados via senha única. </b></p>
+
+</fieldset>

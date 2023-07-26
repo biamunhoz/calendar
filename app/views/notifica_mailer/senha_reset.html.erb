@@ -1,0 +1,9 @@
+<p> Olá <%= @usuario.nomeUsuario %></p>
+
+<p> Seu login é <%= @usuario.loginUsuario %></p>
+
+<p> Clique neste <a href="http://localhost:3000/senha_resets/<%= @usuario.senha_reset_token %>/edit"> link </a> para fazer a alteração da senha. </p>
+
+<p> Se você não solicitou essa alteração, descarte este e-mail. </p>
+<hr>
+<p> Mensagem gerada automaticamene. Não responder. </p>
