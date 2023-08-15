@@ -5,6 +5,7 @@
     <tr>
       <th>Agenda</th>
       <th>Usuário</th>
+      <th>E-mail</th>
       <th>Status da inscrição</th>
       <th>Data da inscrição</th>
       <th>Tipo de Usuário</th>
@@ -20,6 +21,7 @@
       <tr>
         <td><%= ins.agenda.nome %></td>
         <td><%= ins.usuario.nomeUsuario %></td>
+        <td><%= ins.usuario.emailPrincipalUsuario %></td>
         <td><%= ins.tipo %></td>
         <td><%= ins.created_at.strftime("%d/%m/%Y")  %> </td>
         <td><%= ins.usertipo %></td>

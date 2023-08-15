@@ -20,9 +20,10 @@ class EventsController < ApplicationController
       @ehadmindesala = true
     end
 
-    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where(" desmarcado = false and sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.timeini, ' a ', events.timefim) as title, 
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where(" desmarcado = false and sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,time_format(events.timeini, '%H:%i'), ' até ', time_format(events.timefim, '%H:%i')) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
     agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
+
     
     @salasdaagenda = Sala.where("id in (?)", salaspermitidas)
 
@@ -34,7 +35,7 @@ class EventsController < ApplicationController
   def resultagenda
     
     #considerar aqui as permissões 
-    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("desmarcado = false and sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,events.timeini, ' até ', events.timefim) as title, 
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("desmarcado = false and sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,time_format(events.timeini, '%H:%i'), ' até ', time_format(events.timefim, '%H:%i')) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
     agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
 
@@ -67,7 +68,6 @@ class EventsController < ApplicationController
       NotificaMailer.notificaadmineventonegado(@event.id, @usersuper.id, "Negado").deliver_now!
 
     end 
-
 
     @event.destroy
     
@@ -103,7 +103,9 @@ class EventsController < ApplicationController
 
   def listagem
 
-    @events = Event.where("desmarcado = false and sala_id in (?)", salaspermitidas)
+    @events = Event.joins(:usuario)
+    .where("desmarcado = false and sala_id in (?)", salaspermitidas)
+    .select(" events.*, usuarios.nomeUsuario ")
 
   end
 

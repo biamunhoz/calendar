@@ -116,11 +116,22 @@ class AgendasController < ApplicationController
 
 
   def alternegar
+
     @insc = Inscricao.find_by(:id => params[:id])
     
     @insc.tipo = "Negado"
-    @insc.usertipo = "Simples"
+    @insc.usertipo = ""
     @insc.save!
+
+    # apagar as permissões para todas as salas da agenda em questão...
+    @salasdaagenda = Sala.where(agenda_id: @insc.agenda)
+
+    @salasdaagenda.each do |s|
+    
+      @permissao = Permissao.find_by(usuario_id: @insc.usuario_id, sala_id: s.id)
+      @permissao.destroy!
+
+    end   
 
     NotificaMailer.inscricaoagenda(@insc.id, "Rejeitada").deliver_now!
 
@@ -217,7 +228,7 @@ class AgendasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def agenda_params
-      params.require(:agenda).permit(:nome, :apresentacaotelaini, :observacao, :tipo, :validaextra, :usertipo)
+      params.require(:agenda).permit(:nome, :apresentacaotelaini, :observacao, :tipo, :validaextra, :usertipo, :reservadoformextra)
     end
 end
 

@@ -10,13 +10,20 @@ class SalasController < ApplicationController
   def permissao
     @sala = params[:id]
 
-    @permitidos = Permissao.joins(:usuario).joins(:perfil).where(sala_id: @sala).select("usuario_id, nomeUsuario, emailUspUsuario, sala_id, nomeperfil")
+    @permitidos = Permissao.joins(:usuario).joins(:perfil)
+    .joins(" inner join tipo_vinculos on usuarios.id = tipo_vinculos.usuario_id ").where(sala_id: @sala)
+    .select("permissaos.usuario_id, nomeUsuario, emailPrincipalUsuario,  tipoVinculo, nomeSetor, siglaUnidade, sala_id, nomeperfil")
+
+    @permitidosext = Permissao.joins(:usuario).joins(:perfil).where(sala_id: @sala).where(' tipoUsuario= "Externo" ')
+    .select("permissaos.usuario_id, nomeUsuario, emailPrincipalUsuario,  'Externo' as tipoVinculo, 'Externo' as nomeSetor, 'Externo' as siglaUnidade, sala_id, nomeperfil")
 
     @usuarios = Permissao.where(sala_id: @sala).select("usuario_id")
 
-    @negados = Usuario.joins(:tipo_vinculos).where('usuarios.id not in (?)', @usuarios).select("usuarios.id, nomeUsuario, emailUspUsuario, tipoVinculo, nomeSetor, siglaUnidade")
+    @negados = Usuario.joins(:tipo_vinculos).where('usuarios.id not in (?) ', @usuarios)
+    .select("usuarios.id, nomeUsuario, emailPrincipalUsuario, tipoVinculo, nomeSetor, siglaUnidade")
 
-    @negadosext = Usuario.where('id not in (?)', @usuarios).select(" id, nomeUsuario, emailUspUsuario ")
+    @negadosext = Usuario.where('id not in (?) and tipoUsuario = "EXTERNO"', @usuarios)
+    .select(" id, nomeUsuario, emailPrincipalUsuario, 'Externo' as tipoVinculo, 'Externo' as nomeSetor, 'Externo' as siglaUnidade ")
     
   end 
 
@@ -47,7 +54,7 @@ class SalasController < ApplicationController
     @perfil = Perfil.find_by(:nomeperfil => 'Admin').id
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
 
-    NotificaMailer.permissaosala(current_user.id, params[:sala], "Administrador").deliver_now!
+    NotificaMailer.permissaosala(params[:id], params[:sala], "Administrador").deliver_now!
 
   end 
 
@@ -55,7 +62,7 @@ class SalasController < ApplicationController
     @perfil = Perfil.find_by(:nomeperfil => 'Supervisor').id
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
 
-    NotificaMailer.permissaosala(current_user.id, params[:sala], "Supervisor").deliver_now!
+    NotificaMailer.permissaosala(params[:id], params[:sala], "Supervisor").deliver_now!
 
   end  
 
@@ -63,9 +70,18 @@ class SalasController < ApplicationController
     @perfil = Perfil.find_by(:nomeperfil => 'Simples').id
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
 
-    NotificaMailer.permissaosala(current_user.id, params[:sala], "Simples").deliver_now!
+    NotificaMailer.permissaosala(params[:id], params[:sala], "Simples").deliver_now!
 
   end   
+
+  def removeracesso
+
+    @permissao = Permissao.find_by(sala_id: params[:sala], usuario_id: params[:id])
+    @permissao.destroy!
+
+    NotificaMailer.remocaosala(params[:id], params[:sala]).deliver_now!
+
+  end 
 
   # GET /salas
   # GET /salas.json

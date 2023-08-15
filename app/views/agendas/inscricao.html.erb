@@ -1,5 +1,14 @@
 <% if @confirmado == true %>
-    <h1>Inscrição na agenda realizada!</h1>
+    <h2>Inscrição na agenda <%= @tipoagenda.nome %> realizada!</h2>
 <% else %>
-    <h1>Pedido de inscrição foi feito com sucesso. Inscrição pendente aguardando manifestação do supervisor.</h1>
+    <h2>Pedido de inscrição na agenda <%= @tipoagenda.nome %> foi feito com sucesso. Inscrição pendente aguardando manifestação do supervisor.</h2>
 <% end %>   
+
+<h3><%= @tipoagenda.observacao %></h3>
+
+<br>
+
+<% if @tipoagenda.validaextra == true %>
+    <p>Essa agenda exige o preenchimento de outro formulário para uso dos equipamentos.</p>
+    <p>Favor preencher o formulário <%= link_to "Formulário extra", @tipoagenda.reservadoformextra %> </p>
+<% end %>

@@ -16,6 +16,11 @@
 </p>
 
 <p>
+  <strong>Formulário extra de validação:</strong>
+  <%= link_to "Formulário extra", @agenda.reservadoformextra %>
+</p>
+
+<p>
   <strong>Observação:</strong>
   <%= @agenda.observacao %>
 </p>
@@ -26,6 +31,6 @@
 </p>
 
 <% if session[:admingeral] == true %> 
-  <%= link_to 'Editar', edit_agenda_path(@agenda) %> |
+  <%= link_to 'Editar', edit_agenda_path(@agenda), class: 'btn btn-warning'  %> |
 <% end %>
-<%= link_to 'Voltar', :back %>
+<%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

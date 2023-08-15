@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
     has_many :agendamentos, dependent: :delete_all
     belongs_to :sala
+    belongs_to :usuario
     validates_presence_of :sala_id, message: "Campo obrigatório"
     validate :horariomarcado
     validate :tempolimite

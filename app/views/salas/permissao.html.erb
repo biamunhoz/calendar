@@ -3,29 +3,76 @@
 <table class="table table-striped table-bordered table-hover table-condensed">
     <thead>
         <tr>
-            <th>Usuário</th>
+            <th>Nome</th>
+            <th>Vínculo</th>
+            <th>Setor</th>
+            <th>Unidade</th>
+            <th>E-mail</th>
             <th>Perfil Atual</th>
+            
             <th colspan="2">Trocar para ?</th>
+            <th>Remover acesso</th>
         </tr>
     </thead>
   <tbody>
     <% @permitidos.each do |p| %>
         <tr>
+
             <td><%= p.nomeUsuario %> </td>
+            <td><%= p.tipoVinculo %> </td>
+            <td><%= p.nomeSetor %> </td>
+            <td><%= p.siglaUnidade %></td>
+            <td><%= p.emailPrincipalUsuario %> </td>
             <td><%= p.nomeperfil %></td>  
+
             <% if p.nomeperfil == 'Admin' %>
                 <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-warning' %> </td>
                 <td><%= link_to 'Simples', altersimples_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
+                <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
+
             <% elsif p.nomeperfil == 'Supervisor' %>
                 <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-info' %> </td>
                 <td><%= link_to 'Simples', altersimples_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
+                <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
             <% elsif p.nomeperfil == 'Simples' %>
                 <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-warning' %> </td>   
-                <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-info' %> </td>            
+                <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-info' %> </td>           
+                <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                         
             <% end %>
         </tr>
     <% end %>
   </tbody>
+
+
+  <tbody>
+    <% @permitidosext.each do |p| %>
+        <tr>
+
+            <td><%= p.nomeUsuario %> </td>
+            <td><%= p.tipoVinculo %> </td>
+            <td><%= p.nomeSetor %> </td>
+            <td><%= p.siglaUnidade %></td>
+            <td><%= p.emailPrincipalUsuario %> </td>
+            <td><%= p.nomeperfil %></td>  
+
+            <% if p.nomeperfil == 'Admin' %>
+                <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-warning' %> </td>
+                <td><%= link_to 'Simples', altersimples_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
+                <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
+
+            <% elsif p.nomeperfil == 'Supervisor' %>
+                <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-info' %> </td>
+                <td><%= link_to 'Simples', altersimples_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
+                <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
+            <% elsif p.nomeperfil == 'Simples' %>
+                <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-warning' %> </td>   
+                <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-info' %> </td>           
+                <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                         
+            <% end %>
+        </tr>
+    <% end %>
+  </tbody>
+
 </table>    
 
 <h1>Usuários sem Permissão </h1>
@@ -37,6 +84,7 @@
             <th>Vínculo</th>
             <th>Setor</th>
             <th>Unidade</th>
+            <th>E-mail</th>
             <th colspan="3">Cadastrar como </th>
         </tr>
     </thead>
@@ -47,6 +95,7 @@
             <td><%= n.tipoVinculo %> </td>
             <td><%= n.nomeSetor %> </td>
             <td><%= n.siglaUnidade %></td>
+            <td><%= n.emailPrincipalUsuario %> </td>
             <td><%= link_to 'Admin', addadmin_path(:id => n.id, :sala => @sala_atual), class: 'btn btn-info' %> </td>
             <td><%= link_to 'Supervisor', altersuper_path(:id => n.id, :sala => @sala_atual), class: 'btn btn-warning' %> </td>
             <td><%= link_to 'Simples', altersimples_path(:id => n.id, :sala => @sala_atual), class: 'btn btn-danger' %> </td>            
@@ -58,9 +107,10 @@
     <% @negadosext.each do |n| %>
         <tr>
             <td><%= n.nomeUsuario %> </td>
-            <td> </td>
-            <td><%= n.emailUspUsuario %> </td>
-            <td></td>
+            <td><%= n.tipoVinculo %> </td>
+            <td><%= n.nomeSetor %> </td>
+            <td><%= n.siglaUnidade %></td>
+            <td><%= n.emailPrincipalUsuario %> </td>
             <td><%= link_to 'Admin', addadmin_path(:id => n.id, :sala => @sala_atual), class: 'btn btn-info' %> </td>
             <td><%= link_to 'Supervisor', altersuper_path(:id => n.id, :sala => @sala_atual), class: 'btn btn-warning' %> </td>
             <td><%= link_to 'Simples', altersimples_path(:id => n.id, :sala => @sala_atual), class: 'btn btn-danger' %> </td>            
