@@ -356,8 +356,8 @@ class EventsController < ApplicationController
           end
   
           if bEnviaEmailConfirmacao == true
-            NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
-            NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
+            NotificaMailer.confirmacao(current_user.id, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
+            NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
 
             format.html { redirect_to @event, notice: 'Evento foi cadastrado com sucesso. Sujeito a avaliação dos administradores, aguarde confirmação.' }
             format.json { render :show, status: :created, location: @event }
@@ -436,8 +436,8 @@ class EventsController < ApplicationController
         end
 
         if bEnviaEmailConfirmacao == true
-          NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
-          NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
+          NotificaMailer.confirmacao(current_user.id, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
+          NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
 
           format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso. Sujeito a avaliação dos administradores, aguarde confirmação.' }
           format.json { render :show, status: :created, location: @event }

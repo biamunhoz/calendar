@@ -1,2 +1,3 @@
 Olá, <%= @user.nomeUsuario %>
-Seu evento <%= @evento.title %>, de <%= @evento.start_date.strftime("%d/%m/%Y") %> até <%= @evento.end_date.strftime("%d/%m/%Y") %> foi <%= @status %>.
+Seu evento de nome <%= @evento.title %>, registrado para <%= @evento.start_date.strftime("%d/%m/%Y") %>, <%= @evento.timeini.strftime("%H:%M") %> 
+até <%= @evento.end_date.strftime("%d/%m/%Y") %>, <%= @evento.timefim.strftime("%H:%M") %> foi <%= @status %>.

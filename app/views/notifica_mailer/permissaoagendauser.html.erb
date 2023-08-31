@@ -1,0 +1,11 @@
+<p>Olá, <%= @useratual.nomeUsuario %> você se cadastrou na agenda <%= @agenda.nome %> .</p>
+<% if @agenda.tipo == "Publica" %>
+
+    <% if @agenda.validaextra == true %>
+        <p>Essa agenda esta configurada para permissão somente com autorização. Por favor, aguarde a validação da sua inscrição. </p>    
+    <% else %>
+        <p>Essa agenda esta configurada para permissão automática. Sendo assim você já fazer uso dela. </p>
+    <% end %>
+<% else %>
+    <p>Essa agenda esta configurada para permissão somente com autorização. Por favor, aguarde a validação da sua inscrição. </p>
+<% end %>

@@ -1,5 +1,7 @@
 <p>Olá, <%= @user.nomeUsuario %></p>
 
 <p>
-  O evento <%= @evento %> foi criado com sucesso mas necessita ser confirmado pelo supervisor da sala. Aguarde a resposta.
+  O evento <%= @evento %> foi registrado para <%= @de.strftime("%d/%m/%Y") %> <%= @hini.strftime("%H:%M") %> 
+  até <%= @ate.strftime("%d/%m/%Y") %> <%= @hfim.strftime("%H:%M") %>  
+  mas necessita ser confirmado pelo supervisor da sala. Aguarde a resposta.
 </p>

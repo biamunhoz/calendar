@@ -23,21 +23,27 @@ class NotificaMailer < ApplicationMailer
   # with the following lookup:
   #
   #   en.notifica_mailer.confirmacao.subject
-  def confirmacao(user, titulo)
+  def confirmacao(user, titulo, eventode, eventoate, horaini, horafim)
 
     @user = Usuario.find_by(id: user)
     @evento = titulo
+    @de = eventode
+    @ate = eventoate
+    @hini = horaini
+    @hfim = horafim
 
     mail to: @user.emailPrincipalUsuario, subject: "Evento criado - Pendente"
 
   end
 
-  def confirmacaosuper(salaid, salanome, eventonome, eventode, eventoate)
+  def confirmacaosuper(salaid, salanome, eventonome, eventode, eventoate, horaini, horafim)
 
     @sala = salanome
     @evento = eventonome
     @de = eventode
     @ate = eventoate
+    @hini = horaini
+    @hfim = horafim
 
     # 1 - Admin
     # 2 - Supervisor
@@ -115,6 +121,20 @@ class NotificaMailer < ApplicationMailer
 
   end
 
+  def permissaoagendauser(agenda, user)
+
+    @useratual = Usuario.find_by(id: user)
+    
+    @agenda = Agenda.find_by(id: agenda)
+
+    mail to: @useratual.emailPrincipalUsuario, subject: "Permissão de usuário - Sistema de agendas"
+
+    # mail(:to =>  @usersuper.emailPrincipalUsuario, :subject => "Permissão de usuário - Agenda") do |format|
+    #   format.text 
+    #   format.html 
+    # end
+
+  end 
 
   def permissaoagenda(agenda, user)
 
@@ -131,8 +151,6 @@ class NotificaMailer < ApplicationMailer
       @super.each do |su|
 
         @usersuper = Usuario.find_by(id: su.usuario_id)
-
-        #mail to:,  subject: "Permissão de usuário - Agenda"
 
         mail(:to =>  @usersuper.emailPrincipalUsuario, :subject => "Permissão de usuário - Agenda") do |format|
           format.text 
