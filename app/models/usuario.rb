@@ -16,6 +16,39 @@ class Usuario < ApplicationRecord
 
     validate :email_valido?
     validate :check_cpf 
+    validate :nome
+    validate :telefone
+
+    def nome
+
+        nomeparavalidar = self.nomeUsuario
+
+        if self.tipoUsuario == "EXTERNO"
+
+            if nomeparavalidar == ""
+                errors.add(:nomeUsuario, "Nome está vazio")
+                return false 
+            else
+                return true
+            end 
+        end
+    end 
+
+    def telefone
+
+        telefoneparavalidar = self.numeroTelefoneFormatado
+
+
+        if self.tipoUsuario == "EXTERNO"
+ 
+            if telefoneparavalidar == ""
+                errors.add(:numeroTelefoneFormatado, "Telefone está vazio")
+                return false 
+            else 
+                return true
+            end 
+        end
+    end 
 
     def email_valido?
 
@@ -29,7 +62,7 @@ class Usuario < ApplicationRecord
             if emailparavalidar =~ regex
                 return true
             else
-                errors.add(:emailPrincipalUsuario, "CPF inválido")
+                errors.add(:emailPrincipalUsuario, "E-mail inválido")
                 return false 
             end
         else

@@ -46,7 +46,7 @@ class WelcomeController < ApplicationController
 
     #@agendas = carrega_agendas
     #Não pode carregar tudo tem que considerar o que é agenda privada e pública aqui
-    @inscricao = Inscricao.joins(:usuario).joins(:agenda).where("usuarios.loginUsuario = ? ", session[:login]).select("usertipo, agenda_id")
+
     @agendas = Agenda.where(apresentacaotelaini: true)
 
   end

@@ -31,10 +31,10 @@
           <% if tempermissaosuperadmin(event.sala.id) %>
             <td><%= link_to 'Negar ', negarevento_path(event), data: { confirm: 'Essa ação irá apagar todos os agendamentos deste evento. Você tem certeza ?' } %> | <%= link_to 'Confirmar ', confirmarevento_path(event) %> </td>
           <% else %>
-            <td>Esperando confirmação</td>
+            <td style="color:red;">Esperando confirmação - ⧗ EA </td>
           <% end %>
         <% else %>
-          <td> Confirmado </td>
+          <td style="color:green;"> Confirmado - Ⓥ </td>
         <% end %>
         <% if tempermissaosuperadmin(event.sala.id) %>
           <td><%= link_to 'Editar evento', edit_event_path(event), class: 'btn btn-warning'  %></td>

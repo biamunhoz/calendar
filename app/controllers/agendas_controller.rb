@@ -14,6 +14,31 @@ class AgendasController < ApplicationController
 
   end
 
+  def inscreveoutro
+
+    iduser = params[:id]
+    agenda = params[:ag]
+    @tipoagenda = Agenda.find_by(id: agenda)
+    @valida = Inscricao.find_by(usuario_id: iduser, agenda_id: agenda)
+
+    if @valida.nil?
+
+      @insc = Inscricao.new
+      @insc.usuario_id = iduser
+      @insc.agenda_id = agenda
+      @insc.tipo = "Inscrito"
+      @insc.usertipo = "Simples"
+      @insc.save!
+
+      NotificaMailer.permissaoagendauser(agenda, iduser).deliver_now!
+    
+      addpermissao(agenda, iduser)
+
+    end 
+    
+  end 
+
+
   def inscricao
 
     if session[:login] == nil      
@@ -102,6 +127,9 @@ class AgendasController < ApplicationController
       end 
     end
 
+    #select * from usuarios where id not in (select usuario_id from inscricaos where agenda_id = 5);
+    @userseminsc = Usuario.where("id not in (select usuario_id from inscricaos where agenda_id = ? )", @agenda) 
+
   end
 
   #fazer rotina
@@ -134,7 +162,8 @@ class AgendasController < ApplicationController
     @salasdaagenda.each do |s|
     
       @permissao = Permissao.find_by(usuario_id: @insc.usuario_id, sala_id: s.id)
-      @permissao.destroy!
+
+      @permissao.destroy! unless @permissao.nil?
 
     end   
 

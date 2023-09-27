@@ -13,7 +13,8 @@ class SessionController < ApplicationController
     if externo && externo.authenticate(params[:session][:password])
       login_ext externo
       @agendas = Agenda.where(apresentacaotelaini: true)
-      @inscricao = Inscricao.joins(:usuario).joins(:agenda).where("usuarios.loginUsuario = ? ", session[:login]).select("usertipo, agenda_id")
+      #@inscricao = Inscricao.joins(:usuario).joins(:agenda).where("usuarios.loginUsuario = ? ", session[:login])
+      #.select("usertipo, agenda_id, inscricaos.tipo")
       #redirect_to agendas_path
     else
       flash[:notice] = 'Usuário ou senha inválida'

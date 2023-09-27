@@ -9,6 +9,10 @@
 <br>
 
 <% if @tipoagenda.validaextra == true %>
-    <p>Essa agenda exige o preenchimento de outro formulário para uso dos equipamentos.</p>
-    <p>Favor preencher o formulário <%= link_to "Formulário extra", @tipoagenda.reservadoformextra %> </p>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container-fluid">
+        <p class="lead">Essa agenda exige o preenchimento de outro formulário para uso dos equipamentos.</p>
+        <p class="lead">Favor preencher esse <b><%= link_to "Formulário extra", @tipoagenda.reservadoformextra, class: 'btn btn-warning btn-lg' %> </b> </p>
+    </div>    
+</div>    
 <% end %>

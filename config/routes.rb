@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   get 'removeracesso/:id/sala=:sala' => 'salas#removeracesso', as: 'removeracesso'
 
   get 'verinscritos/:id' => 'agendas#verinscritos', as: 'verinscritos'
+  get 'inscreveoutro/:id/ag=:ag' => 'agendas#inscreveoutro', as: 'inscreveoutro'
+
   get 'alternegar/:id' => 'agendas#alternegar', as: 'alternegar'
   get 'alterinscrito/:id' => 'agendas#alterinscrito', as: 'alterinscrito'
   get 'alterusertipo/:id' => 'agendas#alterusertipo', as: 'alterusertipo'

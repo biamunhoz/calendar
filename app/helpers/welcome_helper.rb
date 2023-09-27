@@ -19,6 +19,9 @@ module WelcomeHelper
 
   #destroi a sessão criada na def anterior
   def log_out
+
+    session[:admingeral] = false
+    
     session.destroy
     @current_user = nil
   end
@@ -79,5 +82,7 @@ module WelcomeHelper
     @agendas = Agenda.where(" id in (?) ", agendasfinal)
 
   end
+
+
 
 end

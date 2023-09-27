@@ -1,11 +1,13 @@
-<p>Olá, <%= @useratual.nomeUsuario %> você se cadastrou na agenda <%= @agenda.nome %> .</p>
+<p>Olá, <%= @useratual.nomeUsuario %> você fez o pedido de inscrição na agenda <%= @agenda.nome %> .</p>
 <% if @agenda.tipo == "Publica" %>
 
     <% if @agenda.validaextra == true %>
-        <p>Essa agenda esta configurada para permissão somente com autorização. Por favor, aguarde a validação da sua inscrição. </p>    
+        <p>Esta inscrição está pendente aguardando manifestação do supervisor. </p>   
+        <p>Essa agenda necessita que seja feito um preenchimento neste <%= link_to "Formulário extra", @agenda.reservadoformextra %> para sua inscrição.</p> 
+        <p>Por favor, aguarde a manifestação do supervisor.</p>
     <% else %>
-        <p>Essa agenda esta configurada para permissão automática. Sendo assim você já fazer uso dela. </p>
+        <p>Essa agenda esta configurada para permissão automática. Sendo assim você já pode fazer uso dela. </p>
     <% end %>
 <% else %>
-    <p>Essa agenda esta configurada para permissão somente com autorização. Por favor, aguarde a validação da sua inscrição. </p>
+    <p>Essa agenda esta configurada para permissão somente com autorização. Esta inscrição está pendente aguardando manifestação do supervisor. Por favor, aguarde a validação da sua inscrição. </p>
 <% end %>

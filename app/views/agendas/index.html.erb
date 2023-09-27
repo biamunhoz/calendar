@@ -32,7 +32,23 @@
         <td><%= agenda.observacao %></td>
         <td><%= agenda.tipo %></td>
 
-        <td><%= link_to 'Inscrever-se', inscricao_path(agenda), class: 'btn btn-info'  %> </td>
+        <% @inscricao = teminscricao(agenda.id) %>
+
+        <% if @inscricao.empty? %>
+          <td><%= link_to "Inscrever-se", inscricao_path(agenda), class: 'btn btn-info'  %> </td>
+        <% else %>
+          <% @inscricao.each do |i| %>
+                
+            <% if i.tipo == "Pendente"  %>
+              <td>Inscrição esperando autorização </td>
+            <% elsif i.tipo == "Inscrito" %>
+              <td>Inscrito </td>
+            <% elsif i.tipo == "Negado"%>
+              <td>Negado </td>             
+            <% end %>
+
+          <% end %>
+        <% end %>
 
         <td><%= link_to 'Equipamentos', consulta_path(agenda), class: 'btn btn-light'  %> </td>
         <td><%= link_to 'Informações', agenda, class: 'btn btn-light'  %></td>
