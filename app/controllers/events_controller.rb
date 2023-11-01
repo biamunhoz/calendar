@@ -22,7 +22,7 @@ class EventsController < ApplicationController
 
     @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ")
     .where(" desmarcado = false and sala_id in (?)", salaspermitidas)
-    .select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,time_format(events.timeini, '%H:%i'), ' até ', time_format(events.timefim, '%H:%i'), if (pendente = 1, ' ⧗ EA', ' Ⓥ')) as title, 
+    .select("events.id, Concat(time_format(events.timeini, '%H:%i'), ' até ', time_format(events.timefim, '%H:%i'), ' - ', events.title,' - ' ,events.registropara ,' - ', if (pendente = 1, ' ⧗ EA', ' Ⓥ')) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
     agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
 
@@ -39,7 +39,7 @@ class EventsController < ApplicationController
     #considerar aqui as permissões 
     @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ")
     .where("desmarcado = false and sala_id in (?)", @@salamostrar)
-    .select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,time_format(events.timeini, '%H:%i'), ' até ', time_format(events.timefim, '%H:%i'), if (pendente = 1, ' ⧗ EA', ' Ⓥ')) as title, 
+    .select("events.id, Concat(time_format(events.timeini, '%H:%i'), ' até ', time_format(events.timefim, '%H:%i'), ' - ', events.title,' - ' ,events.registropara ,' - ', if (pendente = 1, ' ⧗ EA', ' Ⓥ')) as title,  
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
     agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
 
@@ -82,7 +82,7 @@ class EventsController < ApplicationController
   def carrega_salas
 
 
-    @permissao = Permissao.where(usuario_id: current_user.id)
+    @permissao = Permissao.where(usuario_id: current_user.id, perfil_id: [1,2,3])
 
     salaspermitidas = Array.new
     @permissao.each do |p|

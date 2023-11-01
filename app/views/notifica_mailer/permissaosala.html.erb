@@ -1,3 +1,10 @@
-<p>Olá, <%= @user.nomeUsuario %></p>
-<p>Sua inscrição no equipamento <%= @sala.nome %> foi aceito e você tem acesso com perfil <%= @perfil %>.</p>
-<p>Você já pode fazer os agendamentos nesse equipamento.</p>
+<% if @perfil == 'Pendente' %>
+    <p>Olá, <%= @user.nomeUsuario %></p>
+    <p>Sua inscrição no equipamento <%= @sala.nome %> foi solicitada.</p>
+    <p>Aguarde o parecer do administrador do equipamento.</p>
+
+<% else %>
+    <p>Olá, <%= @user.nomeUsuario %></p>
+    <p>Sua inscrição no equipamento <%= @sala.nome %> foi aceito e você tem acesso com perfil <%= @perfil %>.</p>
+    <p>Você já pode fazer os agendamentos nesse equipamento.</p>
+<% end %>

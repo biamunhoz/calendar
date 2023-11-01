@@ -28,7 +28,8 @@
         <td><%= agenda.nome %></td>
         <td><%= agenda.apresentacaotelaini == true ? "Sim" : "Não" %></td>
         <td><%= agenda.validaextra == true ? "Sim" : "Não" %></td>
-        <td><%= link_to "Formulário extra", agenda.reservadoformextra %> </td>
+        <td><%= link_to "Formulário extra", agenda.reservadoformextra, class: 'btn btn-warning btn-lg'  %> </td>
+        
         <td><%= agenda.observacao %></td>
         <td><%= agenda.tipo %></td>
 

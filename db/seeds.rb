@@ -8,3 +8,4 @@
 Perfil.create(nomeperfil: "Admin");
 Perfil.create(nomeperfil: "Supervisor");
 Perfil.create(nomeperfil: "Simples");
+Perfil.create(nomeperfil: "Pendente");

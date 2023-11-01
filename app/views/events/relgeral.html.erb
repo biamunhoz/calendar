@@ -13,7 +13,7 @@
     <p> Marcado <%= radio_button_tag :marcado, false %> ou Desmarcado  <%= radio_button_tag :marcado, true %> </p>
     <p> </p>
 
-    <p> <%= label_tag(:sala,  "Escolha a sala") %>
+    <p> <%= label_tag(:sala,  "Escolha o equipamento") %>
       <%= select_tag :sala, options_from_collection_for_select(Sala.where(" id in (?)", carregarsalas), :id, :nome), class: 'chosen-select' %> 
     </p>
 

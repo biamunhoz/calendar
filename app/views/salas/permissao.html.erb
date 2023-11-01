@@ -1,4 +1,4 @@
-<h1>Permitidos</h1>
+<h1>Permitidos / Solicitado acesso </h1>
 <% @sala_atual = @sala%>
 <table class="table table-striped table-bordered table-hover table-condensed">
     <thead>
@@ -34,11 +34,19 @@
                 <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-info' %> </td>
                 <td><%= link_to 'Simples', altersimples_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
                 <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
+            
             <% elsif p.nomeperfil == 'Simples' %>
                 <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-warning' %> </td>   
                 <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-info' %> </td>           
+                <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>   
+
+            <% elsif p.nomeperfil == 'Pendente' %>
+
+                <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-warning' %> </td>   
+                <td><%= link_to 'Simples', altersimples_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
                 <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                         
             <% end %>
+
         </tr>
     <% end %>
   </tbody>
@@ -68,6 +76,12 @@
                 <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-warning' %> </td>   
                 <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-info' %> </td>           
                 <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                         
+
+            <% elsif p.nomeperfil == 'Pendente' %>
+
+                <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-warning' %> </td>   
+                <td><%= link_to 'Simples', altersimples_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                        
+                <td><%= link_to 'Remover', removeracesso_path(:id => p.usuario_id, :sala => p.sala_id), class: 'btn btn-danger' %> </td>                                                     
             <% end %>
         </tr>
     <% end %>

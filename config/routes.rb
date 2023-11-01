@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get 'addadmin/:id/sala=:sala' => 'salas#addadmin', as: 'addadmin'
   get 'altersuper/:id/sala=:sala' => 'salas#altersuper', as: 'altersuper'
   get 'altersimples/:id/sala=:sala' => 'salas#altersimples', as: 'altersimples'
+  get 'alterpendente/:id/sala=:sala' => 'salas#alterpendente', as: 'alterpendente'
+  
   get 'removeracesso/:id/sala=:sala' => 'salas#removeracesso', as: 'removeracesso'
 
   get 'verinscritos/:id' => 'agendas#verinscritos', as: 'verinscritos'

@@ -74,6 +74,21 @@ class SalasController < ApplicationController
 
   end   
 
+
+  def alterpendente
+    @perfil = Perfil.find_by(:nomeperfil => 'Pendente').id
+    @registrado = salvaperfil(@perfil, params[:sala], params[:id])
+
+    NotificaMailer.permissaosala(params[:id], params[:sala], "Pendente").deliver_now!
+    
+    #Notifica admins    
+    @admins = Sala.joins(:permissaos).where(id: params[:sala])
+              .where(" permissaos.perfil_id in (1,2) ").select("salas.*, permissaos.usuario_id")
+    @admins.each do |adm|
+      NotificaMailer.permissaosalaadm(adm.usuario_id, params[:sala], "Pendente", params[:id]).deliver_now!  
+    end 
+  end   
+
   def removeracesso
 
     @permissao = Permissao.find_by(sala_id: params[:sala], usuario_id: params[:id])
@@ -92,7 +107,17 @@ class SalasController < ApplicationController
     if params[:sala_id].present?
       @salas = Sala.where(id: params[:sala_id])
     end
+
     @salas 
+
+    salaspermitidas = Array.new
+
+    @salas.each do |a|
+        salaspermitidas << a.id
+    end
+
+    @salasescondidas = Sala.where(permissaoauto: false).where("id not in (?)", salaspermitidas)
+
   end
 
   # GET /salas/1

@@ -5,7 +5,8 @@
       <th>Cor</th>
       <th>Permissão automática</th>
       <th>Observação</th>
-      <th>Confirmação</th>
+      <th>Confirmação do agendamento</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -17,6 +18,19 @@
         <td><%= sala.permissaoauto == true ? "Sim" : "Não" %></td>
         <td><%= sala.observacao %></td>
         <td><%= sala.confirmacao == true ? "Sim" : "Não" %></td>
+        <% if sala.permissaoauto == false %>
+          <% if carregarsalas.include?(sala.id) %>
+            <td></td>
+          <% else %>
+            <% if jasolicitouacesso(sala.id) %>
+              <td>Acesso solicitado. Aguarde</td>
+            <% else %>
+              <td><%= link_to 'Solicitar acesso', alterpendente_path(:id => current_user.id, :sala => sala.id), class: 'btn btn-default' %> </td>     
+            <% end %>          
+          <% end %>
+        <% else %>
+          <td></td>
+        <% end%>
         <% if session[:admingeral] == true or tempermissaosuperadmin(sala.id) %>
           <td><%= link_to "Permissão", permissao_path(sala), class: 'btn btn-light'  %>  </td>
         <% else %>
