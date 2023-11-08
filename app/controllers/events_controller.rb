@@ -109,7 +109,7 @@ class EventsController < ApplicationController
 
     @events = Event.joins(:usuario)
     .where("desmarcado = false and sala_id in (?)", salaspermitidas)
-    .select(" events.*, usuarios.nomeUsuario ")
+    .select(" events.*, usuarios.nomeUsuario ").order("start_date desc")
 
   end
 
