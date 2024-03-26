@@ -178,3 +178,19 @@ class NotificaMailer < ApplicationMailer
   end
 
 end
+
+=begin 
+Notificações de e-mail:
+
+01) Esqueci a senha
+02) Aviso de horário livre
+03) Confirmação para usuário de que o agendamento foi criado
+04) Confirmação para o supervisor/admin agendamento criado e pendente para confirmar ou negar
+05) Para usuário = cada vez que ele se inscreve em um equipamento ou se o perfil dele esta sendo alterado (Admin, Supervisor, Acesso Simples)
+06) Para admin quando o cara se cadastra na sala
+07) Remoção de acesso para usuário
+08) Status do agendamento para o usuário 
+09) Status negado para Admin 
+10) Permissão na agenda para usuário 
+11) Permissão na agenda para supervisor/admin
+=end
