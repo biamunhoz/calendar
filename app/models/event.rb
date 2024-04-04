@@ -6,9 +6,9 @@ class Event < ApplicationRecord
     validate :horariomarcado
     validate :tempolimite
     validate :dia_is_checked
-    validate :ehfdsouferiado
+    validate :ehfds
 
-    def ehfdsouferiado
+    def ehfds
 
       @configsala = Sala.find(self.sala_id)
 
@@ -16,22 +16,17 @@ class Event < ApplicationRecord
 
         self.start_date.to_date.upto(self.end_date.to_date) do |day|
 
-          if feriado(day)
-            errors.add(:sala_id, "Impossível marcar no feriado")
-            break
-          end
-
           case day.wday       
           when 0
             if self.domingo == true
               print "Domingo - Fim de semanaaaaaaaaaaaaaaaaaaaaaaa"
-              errors.add(:sala_id, "Impossível marcar no feriado")
+              errors.add(:sala_id, "Impossível marcar no fim de semana")
               break
             end 
           when 6
             if self.sabado == true
               print "Sabado - Fim de semanaaaaaaaaaaaaaaaaaaaaaaa"
-              errors.add(:sala_id, "Impossível marcar no feriado")
+              errors.add(:sala_id, "Impossível marcar no fim de semana")
               break              
             end 
           end 
@@ -101,8 +96,8 @@ class Event < ApplicationRecord
 
     def horariomarcado
       if validaFinal == true
-        errors.add(:start_date, "Período reservado anteriormente ou não permitido reserva")
-        errors.add(:end_date, "Período reservado anteriormente ou não permitido reserva")
+        errors.add(:aviso, "Período reservado anteriormente ou não permitido reserva ou marcado dentro do perído de feriado.")
+        #errors.add(:error, "Período reservado anteriormente ou não permitido reserva")
       end  
     end
 
@@ -151,6 +146,13 @@ class Event < ApplicationRecord
               end    
             when 1
               if self.segunda == true
+
+                if feriado(day)
+                  bAchou = true
+                  break
+                end
+
+
                 if verificaTempo(day, @horaini, @horafim)
                   bAchou = true
                   break
@@ -158,6 +160,12 @@ class Event < ApplicationRecord
               end 
             when 2
               if self.terca == true
+
+                if feriado(day)
+                  bAchou = true
+                  break
+                end
+
                 if verificaTempo(day, @horaini, @horafim) 
                   bAchou = true
                   break
@@ -165,6 +173,12 @@ class Event < ApplicationRecord
               end 
             when 3
               if self.quarta == true
+
+                if feriado(day)
+                  bAchou = true
+                  break
+                end
+
                 if verificaTempo(day, @horaini, @horafim)
                   bAchou = true
                   break
@@ -172,6 +186,12 @@ class Event < ApplicationRecord
               end 
             when 4
               if self.quinta == true
+
+                if feriado(day)
+                  bAchou = true
+                  break
+                end
+
                 if verificaTempo(day, @horaini, @horafim)
                   bAchou = true
                   break
@@ -179,8 +199,13 @@ class Event < ApplicationRecord
               end
             when 5
               if self.sexta == true
-                if verificaTempo(day, @horaini, @horafim) 
+                if feriado(day)
                   bAchou = true
+                  break
+                end
+
+                if verificaTempo(day, @horaini, @horafim) 
+                  bAchou = true              
                   break
                 end 
               end 
