@@ -86,10 +86,20 @@
     <%= form.check_box :disablefds %>
   </div>
 
+  <div class="field">
+    <%= form.label :permitiapagarevento, "Permite o usuário apagar agendamento" %>
+    <%= form.check_box :permitiapagarevento %>
+  </div>
 
+  <!-- Alterado botão Novo equipamento-->
   <div class="field">
     <%= form.label :agenda_id, "Vincular na agenda" %>
-    <%= form.select("agenda_id", Agenda.all.collect {|a| [ a.nome, a.id ] })  %>
+    <% if session[:admingeral] == true %>
+      <%= form.select("agenda_id", Agenda.all.collect {|a| [ a.nome, a.id ] })  %>
+    <% else %>
+      <%= form.select("agenda_id", @agenda.collect { |a| [ a.nome, a.id ]})  %>
+    <% end %>
+
   </div>
 
   <div class="actions">

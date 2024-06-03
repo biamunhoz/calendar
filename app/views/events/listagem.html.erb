@@ -43,7 +43,12 @@
         <% else %>
           <% if event.usuario_id == current_user.id %>
             <td><%= link_to 'Editar evento', edit_event_path(event), class: 'btn btn-warning'  %></td>
-            <td><%= link_to 'Apagar evento', event, method: :delete, data: { confirm: 'Essa ação irá apagar todos os agendamentos deste evento. Você tem certeza ?' }, class: 'btn btn-danger' %></td>
+
+            <% if event.sala.permitiapagarevento == true %>
+              <td><%= link_to 'Apagar evento', event, method: :delete, data: { confirm: 'Essa ação irá apagar todos os agendamentos deste evento. Você tem certeza ?' }, class: 'btn btn-danger' %></td>
+            <% else %>
+              <td></td>
+            <% end %>
             <td></td>
           <% else %>
             <td></td>

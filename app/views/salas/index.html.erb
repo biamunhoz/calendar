@@ -99,6 +99,15 @@
   </tbody>
 </table>
 
-<% if session[:admingeral] == true %>
+<!-- <% if session[:admingeral] == true %>
   <%= link_to 'Novo Equipamento', new_sala_path, class: 'btn btn-info' %>
-<% end %>  
+<% end %>   -->
+
+<!-- Alterado botão Novo equipamento-->
+<% @inscricao.each do |i| %>
+    <% if i.usertipo == "Admin" or session[:admingeral] == true %>
+      <%= link_to 'Novo Equipamento', new_sala_path, class: 'btn btn-info' %> 
+      <% break %>
+  <% end %>                  
+<% end %>   
+<br>

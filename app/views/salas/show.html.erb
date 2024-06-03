@@ -93,6 +93,11 @@
 </p>
 
 <p>
+  <strong>Permissão usuário apagar agendamento:</strong>
+  <%= @sala.permitiapagarevento == true ? "Sim" : "Não" %>
+</p>
+
+<p>
   <strong>Agendas:</strong>
   <%= @sala.agenda.nome %>
 </p>

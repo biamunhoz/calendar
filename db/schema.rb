@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_03_142815) do
+ActiveRecord::Schema.define(version: 2024_04_25_172844) do
 
   create_table "agendamentos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "data_inicio"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2023_08_03_142815) do
     t.time "seghorafim"
     t.integer "valorinterval"
     t.boolean "disablefds", default: false
+    t.boolean "permitiapagarevento", default: true
   end
 
   create_table "tipo_vinculos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
