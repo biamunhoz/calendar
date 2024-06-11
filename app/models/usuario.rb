@@ -14,6 +14,8 @@ class Usuario < ApplicationRecord
 
     has_many :events
 
+    validates :emailPrincipalUsuario, uniqueness: {message: "E-mail já cadastrado anteriormente" }
+
     validate :email_valido?
     validate :check_cpf 
     validate :nome

@@ -1,18 +1,16 @@
-<!-- <%= link_to 'Novo Evento', new_event_path, class: 'btn btn-info'  %>
+<%= link_to 'Lista de eventos', listagem_path(:iddaagenda => @agendasel), class: 'btn btn-warning'  %>
+
 <br>
-<br> -->
+<br>
 
 <% @dadosagenda.each do |agenda| %>
     <p><b><%= agenda.nome %></b> - <%= agenda.observacao %> </p> 
 <% end %>
 
-<br>
 <p style="color:red;"><b>⧗ EA - Em ánalise </b></p>
 <p style="color:green;"><b>Ⓥ - Confirmado</b> </p>
 
-
 <div id="calendario"></div>
-
 <br>
 
 <table >

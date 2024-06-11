@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <!-- % if session[:admingeral] == true or @ehadmindesala == true %-->
-    <%= link_to 'Lista de eventos', listagem_path, class: 'btn btn-warning'  %>
+    <%= link_to 'Lista de eventos', listagem_path(:iddaagenda => 0), class: 'btn btn-warning'  %>
 <!--% end % -->
 
 <br>

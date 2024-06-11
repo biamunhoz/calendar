@@ -107,19 +107,40 @@ class EventsController < ApplicationController
 
   def listagem
 
-    @events = Event.joins(:usuario)
-    .where("desmarcado = false and sala_id in (?)", salaspermitidas)
-    .select(" events.*, usuarios.nomeUsuario ").order("start_date desc")
+    iddaagenda = params[:iddaagenda]
+
+    if iddaagenda == "0"
+
+      @events = Event.joins(:usuario)
+      .where("desmarcado = false and sala_id in (?)", salaspermitidas)
+      .select(" events.*, usuarios.nomeUsuario ").order("start_date desc")
+
+    else
+      @events = Event.joins(:usuario)
+      .where("desmarcado = false and sala_id in (?)", salasdaagenda(iddaagenda))
+      .select(" events.*, usuarios.nomeUsuario ").order("start_date desc")
+    end 
 
   end
 
-  def salaselecionada(sala)
+  def salasdaagenda(agenda)
  
-    @salas = Sala.where(agenda_id: sala)
+
+    @permissao = Permissao.where(usuario_id: current_user.id, perfil_id: [1,2,3])
+
+    salaspermitidas = Array.new
+    @permissao.each do |p|
+      salaspermitidas << p.sala_id
+    end
+
+    @salas = Sala.where(agenda_id: agenda)
     salaselecionada  = Array.new
 
     @salas.each do |a|
-      salaselecionada << a.id
+
+      if salaspermitidas.include?(a.id) == true
+        salaselecionada << a.id
+      end 
     end
 
     return salaselecionada
@@ -129,12 +150,12 @@ class EventsController < ApplicationController
    
     @agendasel = params[:id]
 
-    #@@salamostrar = salaselecionada(@agendasel)
-    #@salasdaagenda = Sala.where(:agenda_id => @agendasel)
+    @@salamostrar = salasdaagenda(@agendasel)
+    @salasdaagenda = Sala.where(:id => @@salamostrar)
     
-    @@salamostrar = salaspermitidas    
+    #@@salamostrar = salaspermitidas    
+    #@salasdaagenda = Sala.where(:id => salaspermitidas)
     @dadosagenda = Agenda.where(:id => @agendasel)   
-    @salasdaagenda = Sala.where(:id => salaspermitidas)
 
     
   end 
