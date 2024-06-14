@@ -97,7 +97,7 @@
     <% if session[:admingeral] == true %>
       <%= form.select("agenda_id", Agenda.all.collect {|a| [ a.nome, a.id ] })  %>
     <% else %>
-      <%= form.select("agenda_id", @agenda.collect { |a| [ a.nome, a.id ]})  %>
+      <%= form.select("agenda_id", @agenda.collect { |a| [ a.nome, a.agenda_id ]})  %>
     <% end %>
 
   </div>
