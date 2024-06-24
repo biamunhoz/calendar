@@ -17,6 +17,10 @@ module ApplicationHelper
         @inscricao = Inscricao.joins(:usuario).joins(:agenda).where("usuarios.loginUsuario = ? and agenda_id = ? ", session[:login], agendaid)
         .select("usertipo, agenda_id, inscricaos.tipo")
     end 
+
+    def infoagenda(agendaid)
+        @dadosagenda = Agenda.find_by(:id => agendaid)        
+    end 
   
    
 end

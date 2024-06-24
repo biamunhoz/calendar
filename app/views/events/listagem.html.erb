@@ -24,7 +24,12 @@
         <td><%= event.sala.nome %></td>
         <td><%= event.title %></td>
         <td><%= event.registropara %> </td>
-        <td><%= extrair_primeiro_nome(event.nomeUsuario) %> - <%= event.usuario.emailPrincipalUsuario %> </td>
+        <td>
+          <%= extrair_primeiro_nome(event.nomeUsuario) %> 
+          <% if tempermissaosuperadmin(event.sala.id) %>
+            : <%= event.usuario.emailPrincipalUsuario %> - <%= event.usuario.numeroTelefoneFormatado %>  <%= event.usuario.tel_contato %>
+          <% end %>
+        </td>
         <td><%= event.start_date.strftime("%d/%m/%Y") + " - " + event.timeini.strftime("%H:%M") %></td>
         <td><%= event.end_date.strftime("%d/%m/%Y") + " - " + event.timefim.strftime("%H:%M")  %></td>        
         <% if event.pendente == true %>

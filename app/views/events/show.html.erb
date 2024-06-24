@@ -21,6 +21,28 @@
 </p>
 
 <p>
+  <strong>Nome do usuário que registrou:</strong>
+  <%= @event.usuario.nomeUsuario %> 
+</p>
+
+<% @agenda = infoagenda(@event.sala.agenda_id) %>
+
+<% if @agenda.mostrainfouser == true %>
+  <p>
+    <strong>Informações de contato do usuário que registrou:</strong>
+    <%= @event.usuario.emailPrincipalUsuario %> - <%= @event.usuario.numeroTelefoneFormatado %> - <%= @event.usuario.tel_contato %></td>
+  </p>
+<% else %>
+  <% if tempermissaosuperadmin(@event.sala.id) %>
+    <p>
+      <strong>Informações de contato do usuário que registrou:</strong>
+      <%= @event.usuario.emailPrincipalUsuario %> - <%= @event.usuario.numeroTelefoneFormatado %> - <%= @event.usuario.tel_contato %></td>
+    </p>
+  <% end %>
+<% end %>
+
+
+<p>
   <strong>Data/Hora inicial:</strong>
   <%= @event.start_date.strftime("%d/%m/%Y") + " - " + @event.timeini.strftime("%H:%M")   %>
 </p>

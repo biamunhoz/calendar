@@ -25,7 +25,8 @@
 
         <% if @inscricao.empty? %>
           <td><%= link_to "Inscrever-se", inscricao_path(agenda), class: 'btn btn-light'  %> </td>
-          <td></td>
+          <td><%= link_to "Formulário extra", agenda.reservadoformextra, class: 'btn btn-warning btn-lg' %></td>
+          <td></td> 
         <% else %>
           <% @inscricao.each do |i| %>
                 
