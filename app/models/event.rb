@@ -96,8 +96,9 @@ class Event < ApplicationRecord
 
     def horariomarcado
       if validaFinal == true
-        errors.add(:aviso, "Período reservado anteriormente ou não permitido reserva ou marcado dentro do perído de feriado.")
-        #errors.add(:error, "Período reservado anteriormente ou não permitido reserva")
+        errors.add(:aviso1, "Ou esse período já foi reservado anteriormente.")
+        errors.add(:aviso2, "Ou período não permite reserva .")
+        errors.add(:aviso3, "Ou dia da semana marcado pode ser diferente do que o dia real.")
       end  
     end
 
@@ -108,6 +109,7 @@ class Event < ApplicationRecord
       @horaini = self.timeini
       @horafim = self.timefim
   
+
       if new_record?
         @eventosdasala = Event.where(sala_id: self.sala_id).where(" desmarcado = false and start_date >= ? or end_date >= ? " , self.start_date, self.end_date)
       else
@@ -130,10 +132,11 @@ class Event < ApplicationRecord
   
         diaini.upto(diafim) do |day|
 
+          print "Cheguei aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+
           case day.wday       
             when 0
               if self.domingo == true
-                
                 if @configsala.disablefds == true
                   bAchou = true
                   break
@@ -143,6 +146,9 @@ class Event < ApplicationRecord
                   end
 
                 end 
+              else 
+                bAchou = true
+                break
               end    
             when 1
               if self.segunda == true
@@ -152,11 +158,13 @@ class Event < ApplicationRecord
                   break
                 end
 
-
                 if verificaTempo(day, @horaini, @horafim)
                   bAchou = true
                   break
                 end
+              else 
+                bAchou = true
+                break                              
               end 
             when 2
               if self.terca == true
@@ -170,10 +178,12 @@ class Event < ApplicationRecord
                   bAchou = true
                   break
                 end
+              else 
+                bAchou = true
+                break                 
               end 
             when 3
               if self.quarta == true
-
                 if feriado(day)
                   bAchou = true
                   break
@@ -183,10 +193,13 @@ class Event < ApplicationRecord
                   bAchou = true
                   break
                 end 
+              else 
+                bAchou = true
+                break                 
               end 
             when 4
-              if self.quinta == true
 
+              if self.quinta == true
                 if feriado(day)
                   bAchou = true
                   break
@@ -196,6 +209,9 @@ class Event < ApplicationRecord
                   bAchou = true
                   break
                 end
+              else 
+                bAchou = true
+                break                 
               end
             when 5
               if self.sexta == true
@@ -208,6 +224,9 @@ class Event < ApplicationRecord
                   bAchou = true              
                   break
                 end 
+              else 
+                bAchou = true
+                break                 
               end 
             when 6
               if self.sabado == true
@@ -219,6 +238,9 @@ class Event < ApplicationRecord
                     break
                   end
                 end 
+              else 
+                bAchou = true
+                break 
               end  
             end
         end  
@@ -232,9 +254,6 @@ class Event < ApplicationRecord
       
       bAchou = false
 
-      print "----------------------------------FERIADOOOOOOOOOOOO"
-      print dia 
-      print "----------------------------------"
       case dia.month      
       when 1
         if dia.day == 1 or dia.day == 25

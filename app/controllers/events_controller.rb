@@ -344,41 +344,44 @@ class EventsController < ApplicationController
           diaini = @event.start_date.to_date
           diafim = @event.end_date.to_date
 
-          diaini.upto(diafim) do |day|
 
-            print "ENTROUUUUUUUUUUUUUUUU AQUI "
-            case day.wday       
-              when 0
-                if @event.domingo == true
-                  salvaAgendamento(day, day, horaini, horafim, @event.id)
-                end   
-              when 1
-                if @event.segunda == true
-                  salvaAgendamento(day, day, horaini, horafim, @event.id)
-                end               
-              when 2 
-                if @event.terca == true
-                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+          if diaini == diafim
+            salvaAgendamento(diaini, diafim, horaini, horafim, @event.id)
+          else
+            diaini.upto(diafim) do |day|
+              case day.wday       
+                when 0
+                  if @event.domingo == true
+                    salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  end   
+                when 1
+                  if @event.segunda == true
+                    salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  end               
+                when 2 
+                  if @event.terca == true
+                    salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  end
+                when 3 
+                  if @event.quarta == true                  
+                    salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  end
+                when 4 
+                  if @event.quinta == true
+                    salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  end
+                when 5 
+                  if @event.sexta == true
+                    salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  end
+                when 6 
+                  if @event.sabado == true
+                    salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  end             
                 end
-              when 3 
-                if @event.quarta == true                  
-                  salvaAgendamento(day, day, horaini, horafim, @event.id)
-                end
-              when 4 
-                if @event.quinta == true
-                  salvaAgendamento(day, day, horaini, horafim, @event.id)
-                end
-              when 5 
-                if @event.sexta == true
-                  salvaAgendamento(day, day, horaini, horafim, @event.id)
-                end
-              when 6 
-                if @event.sabado == true
-                  salvaAgendamento(day, day, horaini, horafim, @event.id)
-                end             
-              end
-            
-          end
+              
+            end
+          end 
   
           if bEnviaEmailConfirmacao == true
             NotificaMailer.confirmacao(current_user.id, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
@@ -426,38 +429,42 @@ class EventsController < ApplicationController
 
         delAgendamentos(@event.id)
 
-        diaini.upto(diafim) do |day|
-          case day.wday       
-            when 0
-              if @event.domingo == true
-                salvaAgendamento(day, day, horaini, horafim, @event.id)
-              end   
-            when 1
-              if @event.segunda == true
-                salvaAgendamento(day, day, horaini, horafim, @event.id)
-              end               
-            when 2 
-              if @event.terca == true
-                salvaAgendamento(day, day, horaini, horafim, @event.id)
+        if diaini == diafim
+          salvaAgendamento(diaini, diafim, horaini, horafim, @event.id)
+        else
+          diaini.upto(diafim) do |day|
+            case day.wday       
+              when 0
+                if @event.domingo == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                end   
+              when 1
+                if @event.segunda == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                end               
+              when 2 
+                if @event.terca == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                end
+              when 3 
+                if @event.quarta == true                  
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                end
+              when 4 
+                if @event.quinta == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                end
+              when 5 
+                if @event.sexta == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                end
+              when 6 
+                if @event.sabado == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                end             
               end
-            when 3 
-              if @event.quarta == true                  
-                salvaAgendamento(day, day, horaini, horafim, @event.id)
-              end
-            when 4 
-              if @event.quinta == true
-                salvaAgendamento(day, day, horaini, horafim, @event.id)
-              end
-            when 5 
-              if @event.sexta == true
-                salvaAgendamento(day, day, horaini, horafim, @event.id)
-              end
-            when 6 
-              if @event.sabado == true
-                salvaAgendamento(day, day, horaini, horafim, @event.id)
-              end             
-            end
-          
+            
+          end
         end
 
         if bEnviaEmailConfirmacao == true
