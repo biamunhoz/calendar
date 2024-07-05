@@ -76,3 +76,7 @@ gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dab
 
 # login com has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+
+# datatablles
+gem 'jquery-datatables-rails' #, git: 'git://github.com/rweng/jquery-datatables-rails.git'
+gem 'jquery-ui-rails'

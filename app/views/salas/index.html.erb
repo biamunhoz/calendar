@@ -1,8 +1,36 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#sala').dataTable ({
+          "iDisplayLength": 10, 
+          "bPaginate": true,    
+          "sPaginationType":"full_numbers", 
+          "bJQueryUI":true,
+          "bLengthChange":false, 
+          "ordering":     true, 
+          "aaSorting":    [],  
+          "oLanguage": { 
+              "sInfo":              "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+              "sInfoFiltered":      "Filtrado de _MAX_ registros no total",
+              "sInfoEmpty":         "Sem resultados",
+              "sZeroRecords":       "Sem resultados",
+              "sSearch":            "Buscar",
+              "oPaginate": {
+                  "sFirst":         "Primeiro",
+                  "sPrevious":      "Anterior",
+                  "sNext":          "Próximo",
+                  "sLast":          "Ultimo"
+              }
+          }
+      })
+  })
+</script>
+
+
 <p id="notice"><%= notice %></p>
 
 <h1>Equipamentos permitidos o acesso ou liberados anteriormente </h1>
 
-<table class="table table-striped table-bordered table-hover table-condensed">
+<table class="table table-bordered display" id="sala">
   <thead>
     <tr>
       <th>Nome</th>
@@ -14,6 +42,7 @@
       <th>Limite de uso</th>
       <th>Bloquear fora do intervalo</th>
       <th>Pertence a agenda</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>

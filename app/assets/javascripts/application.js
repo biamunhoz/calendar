@@ -21,6 +21,7 @@
 //= require bootstrap
 //= require fullcalendar
 //= require fullcalendar/locale-all
+//= require dataTables/jquery.dataTables
 
 $(function () {
     function eventCalendar() {
