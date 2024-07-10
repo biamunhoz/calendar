@@ -55,6 +55,16 @@
   <% if usuario.tipoUsuario == "EXTERNO" %>
 
     <div class="field">
+      <%= form.label :instituicao, "Instituição" %>
+      <%= form.text_field :instituicao %>
+    </div>
+
+    <div class="field">
+      <%= form.label :vinculo, "Vínculo" %>
+      <%= form.text_field :vinculo %>
+    </div>
+
+    <div class="field">
       <%= form.label :emailPrincipalUsuario, "E-mail" %>
       <%= form.text_field :emailPrincipalUsuario %>
     </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_21_170122) do
+ActiveRecord::Schema.define(version: 2024_07_10_182641) do
 
   create_table "agendamentos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "data_inicio"
@@ -143,6 +143,8 @@ ActiveRecord::Schema.define(version: 2024_06_21_170122) do
     t.string "auth_token"
     t.string "senha_reset_token"
     t.datetime "senha_reset_sent_at"
+    t.string "instituicao"
+    t.string "vinculo"
   end
 
   add_foreign_key "agendamentos", "events"
