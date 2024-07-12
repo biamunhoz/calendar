@@ -1,5 +1,7 @@
 class NotificaMailer < ApplicationMailer
-
+  default charset: 'UTF-8'
+  default content_transfer_encoding: '8bit'
+  
   def senha_reset(usuario)
     @usuario = usuario
     mail({
@@ -32,7 +34,7 @@ class NotificaMailer < ApplicationMailer
     @hini = horaini
     @hfim = horafim
 
-    mail to: @user.emailPrincipalUsuario, subject: "Evento criado - Pendente"
+    mail to: @user.emailPrincipalUsuario, subject: "Evento registrado - Pendente"
 
   end
 
@@ -53,7 +55,16 @@ class NotificaMailer < ApplicationMailer
 
       @usersuper = Usuario.find_by(id: su.usuario_id)
 
-      mail to: @usersuper.emailPrincipalUsuario, subject: "Evento pendente - Favor confirmar/negar"
+      #mail to: @usersuper.emailPrincipalUsuario, subject: "Evento novo - Favor confirmar/negar"
+      
+      mail(
+	      to: @usersuper.emailPrincipalUsuario,
+	      subject: 'Evento novo - Favor confirmar/negar'
+	    ) do |format|
+	      format.text { render plain: render_to_string('notifica_mailer/confirmacaosuper.text.erb') }
+	      format.html { render html: render_to_string('notifica_mailer/confirmacaosuper.html.erb').html_safe }
+      end
+           
     end
 
   end 
