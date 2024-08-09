@@ -4,7 +4,7 @@ class SenhaResetsController < ApplicationController
     usuario = Usuario.find_by(emailPrincipalUsuario: params[:email], tipoUsuario: "EXTERNO")
     if usuario
       send_senha_reset(usuario)
-      redirect_to root_url, notice: "Verifique seu e-mail"
+      redirect_to root_url, notice: "Verifique seu e-mail, incluindo a caixa de SPAM."
     else
       redirect_to root_url, notice:  "Esse usuário não foi encontrado no cadastro de usuários externos.  "
     end
