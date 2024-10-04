@@ -97,6 +97,8 @@ class WelcomeController < ApplicationController
 
     @vinculo = @data["vinculo"]
 
+    temvinculoprofissional = false
+
     @vinculo.each do |v|
 
       vinculoexiste = TipoVinculo.where(:usuario_id => id, :tipoVinculo => v["tipoVinculo"])
@@ -118,11 +120,32 @@ class WelcomeController < ApplicationController
       tipoVinc.tipoVinculo = v["tipoVinculo"]
       tipoVinc.usuario_id = id
 
-      tipoVinc.save!
+      #SERVIDOR #DOCENTE
+      # Somente esses serão aceitos
+      if ENV["SOMENTEACESSOLOCAL"] == "false"
+        print "passou aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+        temvinculoprofissional = true
+        tipoVinc.save!
+      else      
+
+        if tipoVinc.tipoVinculo == "SERVIDOR" 
+          temvinculoprofissional = true
+          tipoVinc.save!
+        elsif tipoVinc.tipoVinculo == "DOCENTE"
+          temvinculoprofissional = true
+          tipoVinc.save!
+        end
+
+      end 
 
     end
 
-    return loginUsuario
+    if temvinculoprofissional == true      
+      return loginUsuario
+    else
+      user.destroy!
+      return nil
+    end 
 
   end
 
