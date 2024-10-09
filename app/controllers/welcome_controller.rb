@@ -42,7 +42,11 @@ class WelcomeController < ApplicationController
 
     loginUsuario = tratauser
 
-    log_in loginUsuario
+    if loginUsuario == nil 
+      redirect_to root_path
+    else
+      log_in loginUsuario
+    end
 
     #@agendas = carrega_agendas
     #Não pode carregar tudo tem que considerar o que é agenda privada e pública aqui
@@ -123,7 +127,6 @@ class WelcomeController < ApplicationController
       #SERVIDOR #DOCENTE
       # Somente esses serão aceitos
       if ENV["SOMENTEACESSOLOCAL"] == "false"
-        print "passou aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
         temvinculoprofissional = true
         tipoVinc.save!
       else      
