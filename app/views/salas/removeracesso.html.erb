@@ -1,3 +1,7 @@
-<h1>Acesso removido com sucesso ao equipamento!</h1>
+<% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+    <h1>Acesso removido com sucesso na sala!</h1>
+<% else %>
+    <h1>Acesso removido com sucesso ao equipamento!</h1>
+<% end %>
 
 <%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

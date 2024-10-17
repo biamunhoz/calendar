@@ -13,7 +13,13 @@
     <p> Marcado <%= radio_button_tag :marcado, false %> ou Desmarcado  <%= radio_button_tag :marcado, true %> </p>
     <p> </p>
 
-    <p> <%= label_tag(:sala,  "Escolha o equipamento") %>
+    <p>
+      <% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+        <%= label_tag(:sala,  "Escolha a sala") %>
+      <% else %>
+        <%= label_tag(:sala,  "Escolha o equipamento") %>
+      <% end %>      
+      
       <%= select_tag :sala, options_from_collection_for_select(Sala.where(" id in (?)", carregarsalas), :id, :nome), class: 'chosen-select' %> 
     </p>
 
@@ -28,7 +34,11 @@
 <table  class="table table-bordered">
   <thead>
   <tr>
-    <th class="text-center"> Equipamento </th>
+    <% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+      <th class="text-center">Sala</th>
+    <% else %>
+      <th class="text-center">Equipamento</th>
+    <% end %>
     <th class="text-center"> Título </th>
     <th class="text-center"> Data inicial </th>
     <th class="text-center"> Hora inicial </th>

@@ -39,7 +39,13 @@
           
           <li class="navbar-brand mb-0 h1"> <%= link_to "Agendas ", agendas_path, class: "nav-link" %></li>
           <li class="navbar-brand mb-0 h1"> <%= link_to "Minhas agendas - Eventos ", events_path, class: "nav-link" %></li>
-          <li class="navbar-brand mb-0 h1"> <%= link_to "Equipamentos ", salas_path, class: "nav-link" %></li>
+
+          <% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+            <li class="navbar-brand mb-0 h1"> <%= link_to "Salas ", salas_path, class: "nav-link" %></li>
+          <% else %>
+            <li class="navbar-brand mb-0 h1"> <%= link_to "Equipamentos ", salas_path, class: "nav-link" %></li>
+          <% end %>
+          
           <li class="navbar-brand mb-0 h1"> <%= link_to "Sair " , logout_path, class: "nav-link" %></li>
         </ul>
         </div>  

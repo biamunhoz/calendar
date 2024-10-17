@@ -8,7 +8,13 @@ Rails.application.routes.draw do
   resources :perfils
   resources :tipo_vinculos
   resources :usuarios
-  resources :salas, path: 'equipamentos'
+
+  if ENV["SALAOREQUIP"].to_s  == "sala"
+    resources :salas
+  else 
+    resources :salas, path: 'equipamentos'
+  end
+
   resources :agendas
   resources :events
   resources :senha_resets
@@ -36,8 +42,11 @@ Rails.application.routes.draw do
   get 'listagem' => 'events#listagem', as: 'listagem'
   #get 'eventoagenda/:id' => 'events#eventoagenda', as: 'eventoagenda'
 
+  get 'eventoagendalivres', to: 'events#eventoagendalivres', as: 'eventoagendalivres'
+
   get 'eventoagenda/:id', to: 'events#eventoagenda', as: 'eventoagenda'
   get 'resultagenda', to: 'events#resultagenda', as: 'resultagenda', defaults: { format: :json }
+
   get 'negarevento/:id' => 'events#negarevento', as: 'negarevento'
   get 'confirmarevento/:id' => 'events#confirmarevento', as: 'confirmarevento'
 

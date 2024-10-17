@@ -1,7 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Sala/Equipamento:</strong>
+  <% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+    <strong>Sala:</strong>
+  <% else %>
+    <strong>Equipamento:</strong>
+  <% end %>
+
   <%= @event.sala.nome %>
 </p>
 

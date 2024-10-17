@@ -20,11 +20,21 @@
 
   </div-->
 
-  <h4><i> O administrador da agenda reserva-se o direito de analisar as informações fornecidas no agendamento. Em caso de qualquer irregularidade ou impedimento relacionado ao equipamento, o agendamento poderá ser cancelado. </i> </h3>
+  <% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+    <h4><i> O administrador da agenda reserva-se o direito de analisar as informações fornecidas no agendamento. Em caso de qualquer irregularidade ou impedimento relacionado a sala, o agendamento poderá ser cancelado. </i> </h3>
+  <% else %>
+    <h4><i> O administrador da agenda reserva-se o direito de analisar as informações fornecidas no agendamento. Em caso de qualquer irregularidade ou impedimento relacionado ao equipamento, o agendamento poderá ser cancelado. </i> </h3>
+  <% end %>
 
   <br>
   <div class="form-group">
-    <%= form.label :sala_id, "Equipamento escolhido: " %> <%= @sala.nome + " - " + @sala.observacao  %>
+
+    <% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+      <%= form.label :sala_id, "Sala escolhida: " %> <%= @sala.nome + " - " + @sala.observacao  %>
+    <% else %>
+      <%= form.label :sala_id, "Equipamento escolhida: " %> <%= @sala.nome + " - " + @sala.observacao  %>
+    <% end %>
+    
     <%= form.hidden_field :sala_id, value: @sala.id, class: 'form-control' %>
   </div>
 

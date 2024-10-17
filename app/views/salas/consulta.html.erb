@@ -42,7 +42,7 @@
 </table>
 
 <% if session[:admingeral] == true  %>
-  <%= link_to 'Novo Equipamento', new_sala_path, class: 'btn btn-info' %>
+  <%= link_to 'Incluir novo', new_sala_path, class: 'btn btn-info' %>
 <% end %>
 
   <!-- Alterado botão Novo equipamento-->
@@ -50,7 +50,7 @@
 <% @inscricao.each do |i| %>
   <% if i.agenda_id.to_s == @agenda %>
     <% if i.usertipo == "Admin" %>
-      <%= link_to 'Novo Equipamento', new_sala_path, class: 'btn btn-info' %>
+      <%= link_to 'Incluir novo', new_sala_path, class: 'btn btn-info' %>
     <% end %>  
   <% end %>                  
 <% end %>   

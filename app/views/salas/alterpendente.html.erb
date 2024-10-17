@@ -1,4 +1,8 @@
-<h3>Seu pedido para fazer uso desse equipamento foi feito. Aguarde o parecer do administrador.</h3>
+<% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+    <h3>Seu pedido para fazer uso dessa sala foi feito. Aguarde o parecer do administrador.</h3>
+<% else %>
+    <h3>Seu pedido para fazer uso desse equipamento foi feito. Aguarde o parecer do administrador.</h3>
+<% end %>
 
 <br>
 <%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

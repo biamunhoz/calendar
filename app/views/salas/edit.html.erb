@@ -1,4 +1,8 @@
-<h1>Editar Equipamento</h1>
+<% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+    <h1>Editar sala</h1>
+<% else %>
+    <h1>Editar Equipamento</h1>
+<% end %>
 
 <%= render 'form', sala: @sala %>
 

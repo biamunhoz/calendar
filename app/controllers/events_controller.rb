@@ -2,6 +2,9 @@ class EventsController < ApplicationController
   include ApplicationHelper
 
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+
+  before_action :autenticado?, only: [:show, :edit, :update, :destroy, :index, :confirmarevento, :negarevento, :listagem]
+
   # GET /events
   # GET /events.json
 
@@ -156,8 +159,11 @@ class EventsController < ApplicationController
     #@@salamostrar = salaspermitidas    
     #@salasdaagenda = Sala.where(:id => salaspermitidas)
     @dadosagenda = Agenda.where(:id => @agendasel)   
-
     
+  end 
+
+  def eventoagendalivres
+    @@salamostrar = Sala.where("agenda_id in (select id from agendas where apresentacaotelaini = 1 and tipo = 'Publica')").select(" id ")
   end 
 
   def agendamentos

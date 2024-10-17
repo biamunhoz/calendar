@@ -31,7 +31,11 @@
 <table class="table table-bordered display" id="eventolista">
   <thead>
     <tr>
-      <th>Sala/Equipamento</th>
+      <% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+        <th>Sala</th>
+      <% else %>
+        <th>Equipamento</th>
+      <% end %>
       <th>Título</th>
       <th>Registrado para</th>
       <th>Usuário que marcou</th>

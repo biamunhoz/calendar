@@ -27,7 +27,11 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1>Equipamentos permitidos o acesso ou liberados anteriormente </h1>
+<% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+  <h1>Salas permitidas o acesso ou liberadas anteriormente </h1>
+<% else %>
+  <h1>Equipamentos permitidos o acesso ou liberados anteriormente </h1>
+<% end %>
 
 <table class="table table-bordered display" id="sala">
   <thead>
@@ -83,7 +87,12 @@
 
 <br>
 
-<h1>Equipamentos que necessitam autorização para uso </h1>
+<% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+  <h1>Salas que necessitam autorização para uso </h1>
+<% else %>
+  <h1>Equipamentos que necessitam autorização para uso </h1>
+<% end %>
+
 
 <table class="table table-striped table-bordered table-hover table-condensed">
   <thead>
@@ -134,7 +143,7 @@
 <!-- Alterado botão Novo equipamento-->
 <% @inscricao.each do |i| %>
     <% if i.usertipo == "Admin" or session[:admingeral] == true %>
-      <%= link_to 'Novo Equipamento', new_sala_path, class: 'btn btn-info' %> 
+      <%= link_to 'Incluir novo', new_sala_path, class: 'btn btn-info' %> 
       <% break %>
   <% end %>                  
 <% end %>   

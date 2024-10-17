@@ -53,7 +53,12 @@
           <% end %>
         <% end %>
 
-        <td><%= link_to 'Equipamentos', consulta_path(agenda), class: 'btn btn-light'  %> </td>
+        <% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+          <td><%= link_to 'Salas', consulta_path(agenda), class: 'btn btn-light'  %> </td>
+        <% else %>
+          <td><%= link_to 'Equipamentos', consulta_path(agenda), class: 'btn btn-light'  %> </td>
+        <% end %>
+
         <td><%= link_to 'Informações', agenda, class: 'btn btn-light'  %></td>
         <td><%= link_to 'Calendário', eventoagenda_path(agenda), class: 'btn btn-success'  %>  </td>
    
