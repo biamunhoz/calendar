@@ -1,11 +1,30 @@
 <br>
 <h4><i> Os agendamentos só aparecem para agendas configuradas para acesso ao público. </i> </h3>
 
-<br>
 <p style="color:red;"><b>⧗ EA - Em ánalise </b></p>
 <p style="color:green;"><b>Ⓥ - Confirmado</b> </p>
 
 <div id="calendario"></div>
+
+<br>
+
+<table >
+    <% agendaatual = "" %>
+    <% @salasdaagenda.each do |sala|  %>
+        <% if agendaatual == ""  or agendaatual != sala.agenda.nome  %>
+        <tr>
+            <td><b><%= sala.agenda.nome %> </b></td>
+            <% agendaatual = sala.agenda.nome %>
+        </tr> 
+        <tr>
+        <% end %>        
+            <td> <%= sala.nome %> <input type="color" id="favcolor" name="favcolor" disabled value="<%= sala.cor %>"></td>
+        <% if agendaatual == ""  or agendaatual != sala.agenda.nome  %>
+            </tr>
+        <% end %>
+    <% end %>
+    
+</table>
 
 <br>
 

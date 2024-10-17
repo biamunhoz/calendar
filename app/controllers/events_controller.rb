@@ -164,6 +164,9 @@ class EventsController < ApplicationController
 
   def eventoagendalivres
     @@salamostrar = Sala.where("agenda_id in (select id from agendas where apresentacaotelaini = 1 and tipo = 'Publica')").select(" id ")
+    
+    @salasdaagenda = Sala.where(:id => @@salamostrar)
+    
   end 
 
   def agendamentos
