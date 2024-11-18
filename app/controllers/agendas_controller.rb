@@ -64,7 +64,22 @@ class AgendasController < ApplicationController
             @insc.usertipo = "Simples"
             @insc.save!
   
-            NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
+
+            # 1 - Admin
+            # 2 - Supervisor  
+            @salasx = Sala.where(agenda_id: @agenda)
+        
+            @salasx.each do |s| 
+        
+              @super = Permissao.where(perfil_id: [2, 1], sala_id: s.id)
+        
+              @super.each do |su|
+        
+                @usersuper = Usuario.find_by(id: su.usuario_id)
+                NotificaMailer.permissaoagenda(@tipoagenda.nome, current_user.id, @usersuper.emailPrincipalUsuario).deliver_now!
+              end
+
+            end
             NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
           
             @confirmado = false
@@ -95,7 +110,22 @@ class AgendasController < ApplicationController
           @insc.usertipo = "Simples"
           @insc.save!
 
-          NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
+
+          # 1 - Admin
+          # 2 - Supervisor  
+          @salasx = Sala.where(agenda_id: @agenda)
+      
+          @salasx.each do |s| 
+      
+            @super = Permissao.where(perfil_id: [2, 1], sala_id: s.id)
+      
+            @super.each do |su|
+      
+              @usersuper = Usuario.find_by(id: su.usuario_id)
+              NotificaMailer.permissaoagenda(@tipoagenda.nome, current_user.id, @usersuper.emailPrincipalUsuario).deliver_now!
+            end
+
+          end
           NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
 
           @confirmado = false

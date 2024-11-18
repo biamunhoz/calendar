@@ -38,7 +38,7 @@ class NotificaMailer < ApplicationMailer
 
   end
 
-  def confirmacaosuper(salaid, salanome, eventonome, eventode, eventoate, horaini, horafim)
+  def confirmacaosuper(salaid, salanome, eventonome, eventode, eventoate, horaini, horafim, emaildosuper)
 
     @sala = salanome
     @evento = eventonome
@@ -47,26 +47,14 @@ class NotificaMailer < ApplicationMailer
     @hini = horaini
     @hfim = horafim
 
-    # 1 - Admin
-    # 2 - Supervisor
-    @super = Permissao.where(perfil_id: [1,2], sala_id: salaid)
-
-    @super.each do |su|
-
-      @usersuper = Usuario.find_by(id: su.usuario_id)
-
-      #mail to: @usersuper.emailPrincipalUsuario, subject: "Evento novo - Favor confirmar/negar"
-      
       mail(
-	      to: @usersuper.emailPrincipalUsuario,
+        to: emaildosuper,
 	      subject: 'Evento novo - Favor confirmar/negar'
 	    ) do |format|
 	      format.text { render plain: render_to_string('notifica_mailer/confirmacaosuper.text.erb') }
 	      format.html { render html: render_to_string('notifica_mailer/confirmacaosuper.html.erb').html_safe }
-      end
-           
-    end
-
+       end
+       
   end 
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -161,30 +149,17 @@ class NotificaMailer < ApplicationMailer
 
   end 
 
-  def permissaoagenda(agenda, user)
+  def permissaoagenda(agenda, user, useradmin)
 
     @user = Usuario.find_by(id: user)
 
-    @agenda = Agenda.find_by(id: agenda)
+    @agendanome = agenda
 
-    @salasx = Sala.where(agenda_id: agenda)
-
-    @salasx.each do |s| 
-
-      @super = Permissao.where(perfil_id: [2, 1], sala_id: s.id)
-
-      @super.each do |su|
-
-        @usersuper = Usuario.find_by(id: su.usuario_id)
-
-        mail(:to =>  @usersuper.emailPrincipalUsuario, :subject => "Permissão de usuário - Agenda") do |format|
-          format.text 
-          format.html 
-        end
-
-      end
-
+    mail(:to =>  useradmin, :subject => "Permissão de usuário - Agenda") do |format|  
+      format.text 
+      format.html 
     end
+
     
   end
 
