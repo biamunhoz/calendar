@@ -57,10 +57,13 @@
         <td><%= event.title %></td>
         <td><%= event.registropara %> </td>
         <td>
-          <%= extrair_primeiro_nome(event.nomeUsuario) %> 
+           
           <% if tempermissaosuperadmin(event.sala.id) %>
-            : <%= event.usuario.emailPrincipalUsuario %> - <%= event.usuario.numeroTelefoneFormatado %>  <%= event.usuario.tel_contato %>
+            <%= extrair_primeiro_nome(event.nomeUsuario) %> : <%= event.usuario.emailPrincipalUsuario %> - <%= event.usuario.numeroTelefoneFormatado %>  <%= event.usuario.tel_contato %>
+          <% else %>
+            <%= mostraanonimo(event.sala.id) == true ? "Anônimo" : extrair_primeiro_nome(event.nomeUsuario) %>
           <% end %>
+          
         </td>
         <td><%= event.start_date.strftime("%d/%m/%Y") + " - " + event.timeini.strftime("%H:%M") %></td>
         <td><%= event.end_date.strftime("%d/%m/%Y") + " - " + event.timefim.strftime("%H:%M")  %></td>        

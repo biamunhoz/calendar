@@ -55,7 +55,8 @@ class EventsController < ApplicationController
     @event.pendente = false
     @event.save!
 
-    NotificaMailer.eventopendente(@event.id, @event.usuario_id, "Confirmado").deliver_now!
+    ## Fim do contrato com a Nitronews
+    ## NotificaMailer.eventopendente(@event.id, @event.usuario_id, "Confirmado").deliver_now!
 
     redirect_to events_url, notice: 'Evento confirmado'
 
@@ -65,14 +66,16 @@ class EventsController < ApplicationController
 
     @event = Event.find_by(:id => params[:id])
 
-    NotificaMailer.eventopendente(@event.id, @event.usuario_id, "Negado").deliver_now!
+    ## Fim do contrato com a Nitronews
+    ## NotificaMailer.eventopendente(@event.id, @event.usuario_id, "Negado").deliver_now!
         
     @adminesuper = Permissao.where(perfil_id: [2, 1], sala_id: @event.sala_id)
 
     @adminesuper.each do |su|
 
       @usersuper = Usuario.find_by(id: su.usuario_id)
-      NotificaMailer.notificaadmineventonegado(@event.id, @usersuper.id, "Negado").deliver_now!
+      ## Fim do contrato com a Nitronews
+      ## NotificaMailer.notificaadmineventonegado(@event.id, @usersuper.id, "Negado").deliver_now!
 
     end 
 
@@ -194,7 +197,8 @@ class EventsController < ApplicationController
       @supers.each do |s|
         @user = Usuario.find_by(id: s.usuario_id)
 
-        NotificaMailer.avisohorariovago(@user.emailPrincipalUsuario, @ini, @fim, @sala.nome, @user.nomeUsuario).deliver_now!
+        ## Fim do contrato com a Nitronews
+        ## NotificaMailer.avisohorariovago(@user.emailPrincipalUsuario, @ini, @fim, @sala.nome, @user.nomeUsuario).deliver_now!
       end 
 
     end
@@ -393,8 +397,9 @@ class EventsController < ApplicationController
           end 
   
           if bEnviaEmailConfirmacao == true
-            NotificaMailer.confirmacao(current_user.id, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
-  
+            ## Fim do contrato com a Nitronews
+            ## NotificaMailer.confirmacao(current_user.id, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
+
             # 1 - Admin
             # 2 - Supervisor  
             @super = Permissao.where(perfil_id: [1,2], sala_id: @event.sala_id)
@@ -403,7 +408,8 @@ class EventsController < ApplicationController
         
               @usersuper = Usuario.find_by(id: su.usuario_id)
 
-              NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim, @usersuper.emailPrincipalUsuario).deliver_now!
+              ## Fim do contrato com a Nitronews
+              ## NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim, @usersuper.emailPrincipalUsuario).deliver_now!
 
             end 
 
@@ -488,8 +494,9 @@ class EventsController < ApplicationController
         end
 
         if bEnviaEmailConfirmacao == true
-          NotificaMailer.confirmacao(current_user.id, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
-
+          ## Fim do contrato com a Nitronews
+          ## NotificaMailer.confirmacao(current_user.id, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
+          
           # 1 - Admin
           # 2 - Supervisor  
           @super = Permissao.where(perfil_id: [1,2], sala_id: @event.sala_id)
@@ -498,7 +505,8 @@ class EventsController < ApplicationController
       
             @usersuper = Usuario.find_by(id: su.usuario_id)
 
-            NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim, @usersuper.emailPrincipalUsuario).deliver_now!
+            ## Fim do contrato com a Nitronews
+            ## NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim, @usersuper.emailPrincipalUsuario).deliver_now!
 
           end 
 
@@ -533,7 +541,7 @@ class EventsController < ApplicationController
       @supers.each do |s|
         @user = Usuario.find_by(id: s.usuario_id)
 
-        NotificaMailer.avisohorariovago(@user.emailPrincipalUsuario, @ini, @fim, @sala.nome, @user.nomeUsuario).deliver_now!
+        ## NotificaMailer.avisohorariovago(@user.emailPrincipalUsuario, @ini, @fim, @sala.nome, @user.nomeUsuario).deliver_now!
       end 
 
     end 

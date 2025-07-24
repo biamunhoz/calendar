@@ -55,11 +55,15 @@
 
   <div class="field">
     <%= form.label :start_date, "Data inicial" %>
-    <!-- %= form.date_select :start_date, default: 1.days.from_now % --> 
-    <% if session[:admingeral] == true or @ehadmindesala == true %>      
-      <%= form.date_field :start_date, min: Date.today %> -   
+
+    <% if ENV["APROVACAO"] == "false" %>
+      <%= form.date_field :start_date, min: Date.today %> - 
     <% else %>
-      <%= form.date_field :start_date, min: Date.today + 1.day %> -         
+      <% if session[:admingeral] == true or @ehadmindesala == true %>      
+        <%= form.date_field :start_date, min: Date.today %> -   
+      <% else %>
+        <%= form.date_field :start_date, min: Date.today + 1.day %> -         
+      <% end %>
     <% end %>
 
     <%= form.select("timeini", options_for_select(@values.map{ |t| [Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime.strftime("%H:%M")]}, :selected => form.object.timeini == nil ? "" : form.object.timeini.to_datetime.strftime("%H:%M") )) %>
@@ -67,15 +71,19 @@
 
   <div class="field">
     <%= form.label :end_date, "Data final" %>
-    
-    <% if session[:admingeral] == true or @ehadmindesala == true %>      
-      <%= form.date_field :end_date, min: Date.today %> -  
+
+    <% if ENV["APROVACAO"] == "false" %>
+      <%= form.date_field :end_date, min: Date.today %> - 
     <% else %>
-      <%= form.date_field :end_date, min: Date.today + 1.day  %> -        
+      <% if session[:admingeral] == true or @ehadmindesala == true %>   
+        <%= form.date_field :end_date, min: Date.today %> -          
+      <% else %>
+        <%= form.date_field :end_date, min: Date.today + 1.day  %> -        
+      <% end %>
     <% end %>
 
+    <!-- %= form.date_select :end_date, default: 1.days.from_now  % -->  
 
-    <!-- %= form.date_select :end_date, default: 1.days.from_now  % -->     
     <!-- %= select_tag :timefim, options_for_select(@values.map{ |t| [ Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime ]}) %-->
     <!-- %= form.select("timefim", options_for_select(@values.map{ |t| [Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime.strftime("%H:%M") ]}, :selected => form.object.timefim.to_datetime.strftime("%H:%M"))) %-->
     

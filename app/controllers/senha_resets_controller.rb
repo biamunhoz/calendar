@@ -42,7 +42,8 @@ class SenhaResetsController < ApplicationController
     usuario.senha_reset_token = Digest::SHA2.hexdigest("abc123calendar#{Time.zone.now+1.day}")
     usuario.senha_reset_sent_at = Time.zone.now
     usuario.save!
-    NotificaMailer.senha_reset(usuario).deliver_now!
+    ## Fim do contrato com a Nitronews
+    ## NotificaMailer.senha_reset(usuario).deliver_now!
   end
 
 end

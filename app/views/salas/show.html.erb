@@ -98,6 +98,11 @@
 </p>
 
 <p>
+  <strong>Usuário identificado como anônimo para os demais usuários:</strong>
+  <%= @sala.anonimo == true ? "Sim" : "Não" %>
+</p>
+
+<p>
   <strong>Agendas:</strong>
   <%= @sala.agenda.nome %>
 </p>

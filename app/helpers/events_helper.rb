@@ -10,4 +10,11 @@ module EventsHelper
         return primeiro_nome
     end
 
+    def mostraanonimo(salaid)
+
+        @sala = Sala.find(salaid)
+
+        return @sala.anonimo
+    end 
+
 end

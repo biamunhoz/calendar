@@ -57,15 +57,17 @@ class SalasController < ApplicationController
     @perfil = Perfil.find_by(:nomeperfil => 'Admin').id
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
 
-    NotificaMailer.permissaosala(params[:id], params[:sala], "Administrador").deliver_now!
+    ## Fim do contrato com a Nitronews
+    ##NotificaMailer.permissaosala(params[:id], params[:sala], "Administrador").deliver_now!
 
   end 
 
   def altersuper
     @perfil = Perfil.find_by(:nomeperfil => 'Supervisor').id
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
-
-    NotificaMailer.permissaosala(params[:id], params[:sala], "Supervisor").deliver_now!
+    
+    ## Fim do contrato com a Nitronews
+    ##NotificaMailer.permissaosala(params[:id], params[:sala], "Supervisor").deliver_now!
 
   end  
 
@@ -73,7 +75,8 @@ class SalasController < ApplicationController
     @perfil = Perfil.find_by(:nomeperfil => 'Simples').id
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
 
-    NotificaMailer.permissaosala(params[:id], params[:sala], "Simples").deliver_now!
+    ## Fim do contrato com a Nitronews
+    ## NotificaMailer.permissaosala(params[:id], params[:sala], "Simples").deliver_now!
 
   end   
 
@@ -82,14 +85,16 @@ class SalasController < ApplicationController
     @perfil = Perfil.find_by(:nomeperfil => 'Pendente').id
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
 
-    NotificaMailer.permissaosala(params[:id], params[:sala], "Pendente").deliver_now!
+    ## Fim do contrato com a Nitronews
+    ## NotificaMailer.permissaosala(params[:id], params[:sala], "Pendente").deliver_now!
     
+    ## Fim do contrato com a Nitronews
     #Notifica admins    
-    @admins = Sala.joins(:permissaos).where(id: params[:sala])
-              .where(" permissaos.perfil_id in (1,2) ").select("salas.*, permissaos.usuario_id")
-    @admins.each do |adm|
-      NotificaMailer.permissaosalaadm(adm.usuario_id, params[:sala], "Pendente", params[:id]).deliver_now!  
-    end 
+    #@admins = Sala.joins(:permissaos).where(id: params[:sala])
+    #          .where(" permissaos.perfil_id in (1,2) ").select("salas.*, permissaos.usuario_id")
+    #@admins.each do |adm|
+      ## NotificaMailer.permissaosalaadm(adm.usuario_id, params[:sala], "Pendente", params[:id]).deliver_now!  
+    #end 
   end   
 
   def removeracesso
@@ -97,7 +102,8 @@ class SalasController < ApplicationController
     @permissao = Permissao.find_by(sala_id: params[:sala], usuario_id: params[:id])
     @permissao.destroy!
 
-    NotificaMailer.remocaosala(params[:id], params[:sala]).deliver_now!
+    ## Fim do contrato com a Nitronews
+    ## NotificaMailer.remocaosala(params[:id], params[:sala]).deliver_now!
 
   end 
 
@@ -243,6 +249,6 @@ class SalasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sala_params
-      params.require(:sala).permit(:nome, :cor, :permissaoauto, :observacao, :confirmacao, :agenda_id, :avisoadmhoravaga, :limiteqtdeuso, :limitehoras, :bloqforaintervalo ,:prihoraini, :prihorafim, :seghoraini, :seghorafim, :valorinterval, :disablefds, :permitiapagarevento)
+      params.require(:sala).permit(:nome, :cor, :permissaoauto, :observacao, :confirmacao, :agenda_id, :avisoadmhoravaga, :limiteqtdeuso, :limitehoras, :bloqforaintervalo ,:prihoraini, :prihorafim, :seghoraini, :seghorafim, :valorinterval, :disablefds, :permitiapagarevento, :anonimo)
     end
 end

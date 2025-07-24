@@ -30,7 +30,8 @@ class AgendasController < ApplicationController
       @insc.usertipo = "Simples"
       @insc.save!
 
-      NotificaMailer.permissaoagendauser(agenda, iduser).deliver_now!
+      ## Fim do contrato com a Nitronews
+      ##NotificaMailer.permissaoagendauser(agenda, iduser).deliver_now!
     
       addpermissao(agenda, iduser)
 
@@ -63,24 +64,26 @@ class AgendasController < ApplicationController
             @insc.tipo = "Pendente"
             @insc.usertipo = "Simples"
             @insc.save!
-  
 
+            ## Fim do contrato com a Nitronews
             # 1 - Admin
             # 2 - Supervisor  
-            @salasx = Sala.where(agenda_id: @agenda)
+            # @salasx = Sala.where(agenda_id: @agenda)
         
-            @salasx.each do |s| 
+            # @salasx.each do |s| 
         
-              @super = Permissao.where(perfil_id: [2, 1], sala_id: s.id)
+            #   @super = Permissao.where(perfil_id: [2, 1], sala_id: s.id)
         
-              @super.each do |su|
+            #   @super.each do |su|
         
-                @usersuper = Usuario.find_by(id: su.usuario_id)
-                NotificaMailer.permissaoagenda(@tipoagenda.nome, current_user.id, @usersuper.emailPrincipalUsuario).deliver_now!
-              end
+            #     @usersuper = Usuario.find_by(id: su.usuario_id)            #    
+            #     ## NotificaMailer.permissaoagenda(@tipoagenda.nome, current_user.id, @usersuper.emailPrincipalUsuario).deliver_now!
+            #   end
 
-            end
-            NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
+            # end
+
+            ## Fim do contrato com a Nitronews
+            ## NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
           
             @confirmado = false
             print "Aqui 1**********************"
@@ -93,8 +96,8 @@ class AgendasController < ApplicationController
             @insc.usertipo = "Simples"
             @insc.save!
 
-            NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
-            NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
+            ## Fim do contrato com a Nitronews
+            ## NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
           
             addpermissao(@agenda, current_user.id)
             @confirmado = true
@@ -110,23 +113,26 @@ class AgendasController < ApplicationController
           @insc.usertipo = "Simples"
           @insc.save!
 
-
+          ## Fim do contrato com a Nitronews
           # 1 - Admin
           # 2 - Supervisor  
-          @salasx = Sala.where(agenda_id: @agenda)
+          # @salasx = Sala.where(agenda_id: @agenda)
       
-          @salasx.each do |s| 
+          # @salasx.each do |s| 
       
-            @super = Permissao.where(perfil_id: [2, 1], sala_id: s.id)
+          #   @super = Permissao.where(perfil_id: [2, 1], sala_id: s.id)
       
-            @super.each do |su|
+          #   @super.each do |su|
       
-              @usersuper = Usuario.find_by(id: su.usuario_id)
-              NotificaMailer.permissaoagenda(@tipoagenda.nome, current_user.id, @usersuper.emailPrincipalUsuario).deliver_now!
-            end
+          #     @usersuper = Usuario.find_by(id: su.usuario_id)
 
-          end
-          NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
+          #     ## NotificaMailer.permissaoagenda(@tipoagenda.nome, current_user.id, @usersuper.emailPrincipalUsuario).deliver_now!
+          #   end
+
+          # end
+
+          ## Fim do contrato com a Nitronews
+          ## NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
 
           @confirmado = false
 
@@ -197,7 +203,8 @@ class AgendasController < ApplicationController
 
     end   
 
-    NotificaMailer.inscricaoagenda(@insc.id, "Rejeitada").deliver_now!
+    ## Fim do contrato com a Nitronews
+    ## NotificaMailer.inscricaoagenda(@insc.id, "Rejeitada").deliver_now!
 
   end
 
@@ -209,7 +216,8 @@ class AgendasController < ApplicationController
     @insc.usertipo = "Simples"
     @insc.save!
 
-    NotificaMailer.inscricaoagenda(@insc.id, "Aprovada").deliver_now!
+    ## Fim do contrato com a Nitronews
+    ## NotificaMailer.inscricaoagenda(@insc.id, "Aprovada").deliver_now!
 
   end
 

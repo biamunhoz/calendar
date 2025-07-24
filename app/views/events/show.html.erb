@@ -27,8 +27,13 @@
 
 <p>
   <strong>Nome do usuário que registrou:</strong>
-  <%= @event.usuario.nomeUsuario %> 
+  <% if tempermissaosuperadmin(@event.sala.id) %>
+    <%= extrair_primeiro_nome(@event.usuario.nomeUsuario) %> 
+  <% else %>
+    <%= mostraanonimo(@event.sala.id) == true ? "Anônimo" : extrair_primeiro_nome(@event.nomeUsuario) %>
+  <% end %>
 </p>
+
 
 <% @agenda = infoagenda(@event.sala.agenda_id) %>
 
