@@ -61,6 +61,11 @@ Rails.application.routes.draw do
   post 'login_ext' => 'session#create'
   get 'logout_ext' => 'session#destroy', as: 'logout_ext'
 
+  #Rotas para envio de email via gmail api
+  get '/auth/google', to: 'session#google_auth'
+  get '/oauth2/callback', to: 'session#callback'
+  get '/enviar_email', to: 'teste_envio#enviar_email'
+
 
   #root 'welcome#login'
 

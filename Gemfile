@@ -80,3 +80,10 @@ gem 'bcrypt', '~> 3.1.7'
 # datatablles
 gem 'jquery-datatables-rails' #, git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem 'jquery-ui-rails'
+
+# envio de email via gmail api
+gem 'googleauth'
+gem 'google-apis-gmail_v1'
+gem 'mail'
+
+#gem 'gmail_xoauth'

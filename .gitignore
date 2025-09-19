@@ -31,3 +31,4 @@
 /config/master.key
 config/environment_variables.yml
 config/database.yml
+config/client_secret.json
