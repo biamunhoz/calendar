@@ -130,13 +130,20 @@ class Event < ApplicationRecord
         diaini = self.start_date.to_date
         diafim = self.end_date.to_date
   
+        print "Data Inicial: "
+        print diaini
+        print "Data Final: "
+        print diafim  
+
         diaini.upto(diafim) do |day|
 
+          puts "day: #{day}, day.wday: #{day.wday}"
           print "Cheguei aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
 
           case day.wday       
             when 0
               if self.domingo == true
+
                 if @configsala.disablefds == true
                   bAchou = true
                   break
@@ -146,9 +153,9 @@ class Event < ApplicationRecord
                   end
 
                 end 
-              else 
-                bAchou = true
-                break
+              # else 
+              #   bAchou = true
+              #   break
               end    
             when 1
               if self.segunda == true
@@ -162,9 +169,9 @@ class Event < ApplicationRecord
                   bAchou = true
                   break
                 end
-              else 
-                bAchou = true
-                break                              
+              # else 
+              #   bAchou = true
+              #   break                              
               end 
             when 2
               if self.terca == true
@@ -178,9 +185,9 @@ class Event < ApplicationRecord
                   bAchou = true
                   break
                 end
-              else 
-                bAchou = true
-                break                 
+              # else 
+              #   bAchou = true
+              #   break                 
               end 
             when 3
               if self.quarta == true
@@ -193,10 +200,10 @@ class Event < ApplicationRecord
                   bAchou = true
                   break
                 end 
-              else 
-                bAchou = true
-                break                 
-              end 
+              # else 
+              #   bAchou = true
+              #   break                 
+               end 
             when 4
 
               if self.quinta == true
@@ -209,27 +216,30 @@ class Event < ApplicationRecord
                   bAchou = true
                   break
                 end
-              else 
-                bAchou = true
-                break                 
+              # else 
+              #   bAchou = true
+              #   break                 
               end
             when 5
               if self.sexta == true
+
                 if feriado(day)
                   bAchou = true
                   break
                 end
 
                 if verificaTempo(day, @horaini, @horafim) 
+
                   bAchou = true              
                   break
                 end 
-              else 
-                bAchou = true
-                break                 
+              # else 
+              #   bAchou = true
+              #   break                 
               end 
             when 6
               if self.sabado == true
+
                 if @configsala.disablefds == true
                   bAchou = true
                   break
@@ -238,9 +248,9 @@ class Event < ApplicationRecord
                     break
                   end
                 end 
-              else 
-                bAchou = true
-                break 
+              # else 
+              #   bAchou = true
+              #   break 
               end  
             end
         end  
