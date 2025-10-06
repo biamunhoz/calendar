@@ -56,6 +56,8 @@
   <div class="field">
     <%= form.label :start_date, "Data inicial" %>
 
+    <!-- Quando não necessita de aprovação/apoio pra fazer o uso da sala ou do equipamento,  -->
+    <!-- o usuário pode agendar para o mesmo dia, caso contrário, só para o dia seguinte em diante -->
     <% if ENV["APROVACAO"] == "false" %>
       <%= form.date_field :start_date, min: Date.today %> - 
     <% else %>
