@@ -59,9 +59,9 @@
         <td>
            
           <% if tempermissaosuperadmin(event.sala.id) %>
-            <%= extrair_primeiro_nome(event.nomeUsuario) %> : <%= event.usuario.emailPrincipalUsuario %> - <%= event.usuario.numeroTelefoneFormatado %>  <%= event.usuario.tel_contato %>
+            <%= extrair_primeiro_nome(event.usuario.nomeUsuario) %> : <%= event.usuario.emailPrincipalUsuario %> - <%= event.usuario.numeroTelefoneFormatado %>  <%= event.usuario.tel_contato %>
           <% else %>
-            <%= mostraanonimo(event.sala.id) == true ? "Anônimo" : extrair_primeiro_nome(event.nomeUsuario) %>
+            <%= mostraanonimo(event.sala.id) == true ? "Anônimo" : extrair_primeiro_nome(event.usuario.nomeUsuario) %>
           <% end %>
           
         </td>

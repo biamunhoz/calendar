@@ -1,0 +1,50 @@
+<h3> Consulta de eventos por usuário </h3>
+
+<%= form_tag(rel_usuarios_path, method: "get") do  %>
+
+<%= select_tag :usuario, options_from_collection_for_select(Usuario.all, :id, :nomeUsuario), include_blank: true %>
+
+<%= submit_tag "Enviar", class: "btn btn-default" %>
+
+<% end %>
+
+<br>
+
+<h3>Relatório por usuário </h3>
+
+<table  class="table table-bordered">
+  <thead>
+  <tr>
+    <% if ENV["SALAOREQUIP"].to_s  == "sala" %>
+      <th class="text-center">Sala</th>
+    <% else %>
+      <th class="text-center">Equipamento</th>
+    <% end %>
+    <th class="text-center"> Título </th>
+    <th class="text-center"> Data inicial </th>
+    <th class="text-center"> Hora inicial </th>
+    <th class="text-center"> Data final </th>
+    <th class="text-center"> Hora final </th>
+    <th class="text-center"> Descrição </th>
+    <th class="text-center"> Marcado por </th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <% if @resultado == nil or @usuario == nil %>
+    <h5>Nenhum dado foi encontrado ou selecionado </h5>
+  <% else %>
+    <% @resultado.each do |evento| %>
+      <tr>
+        <td class="text-center"> <%= evento.nome %> </td>
+        <td class="text-center"> <%= evento.title %> </td>
+        <td class="text-center"> <%= evento.start_date.strftime("%d/%m/%Y") %> </td>
+        <td class="text-center"> <%= evento.timeini.strftime("%H:%M") %> </td>
+        <td class="text-center"> <%= evento.end_date.strftime("%d/%m/%Y") %> </td>
+        <td class="text-center"> <%= evento.timefim.strftime("%H:%M") %> </td>
+        <td class="text-center"> <%= evento.descricao %> </td>
+        <td class="text-center"> <%= evento.nomeUsuario %> </td>
+      </tr>
+    <% end %>
+  </table>
+  <% end %>

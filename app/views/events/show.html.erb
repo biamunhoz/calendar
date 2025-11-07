@@ -30,7 +30,7 @@
   <% if tempermissaosuperadmin(@event.sala.id) %>
     <%= extrair_primeiro_nome(@event.usuario.nomeUsuario) %> 
   <% else %>
-    <%= mostraanonimo(@event.sala.id) == true ? "Anônimo" : extrair_primeiro_nome(@event.nomeUsuario) %>
+    <%= mostraanonimo(@event.sala.id) == true ? "Anônimo" : extrair_primeiro_nome(@event.usuario.nomeUsuario) %>
   <% end %>
 </p>
 

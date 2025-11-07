@@ -56,20 +56,21 @@ Rails.application.routes.draw do
   get 'apresentasala' => 'events#apresentasala'
 
   get 'relgeral' => 'events#relgeral', as: 'relgeral'
+  get 'rel_usuarios' => 'events#rel_usuarios', as: 'rel_usuarios'
 
   get 'login_ext' => 'session#new', as: 'login_ext'
   post 'login_ext' => 'session#create'
   get 'logout_ext' => 'session#destroy', as: 'logout_ext'
 
-  #Rotas para envio de email via gmail api
-  get '/auth/google', to: 'session#google_auth'
-  get '/oauth2/callback', to: 'session#callback'
-  get '/enviar_email', to: 'teste_envio#enviar_email'
-
 
   #root 'welcome#login'
 
   root 'session#new'
+
+  #Rotas para envio de email via gmail api
+  get '/auth/google', to: 'session#google_auth'
+  get '/oauth2/callback', to: 'session#callback'
+  get '/enviar_email', to: 'teste_envio#enviar_email'
 
   
 end

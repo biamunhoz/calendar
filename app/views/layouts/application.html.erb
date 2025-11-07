@@ -33,10 +33,17 @@
           <li class="navbar-brand mb-0 h1">  <%= link_to "Usuários ", usuarios_path, class: "nav-link" %></li>
 
           <% if ENV["RELATORIO"] == "true" %>
-            <li class="navbar-brand mb-0 h1"> <%= link_to "Relatório ", relgeral_path, class: "nav-link" %></li>       
+            <li class="navbar-brand flex-column mb-0 h1 dropdown">
+              <%= link_to "Relatórios ", "#", class: "nav-link dropdown-toggle", id: "relatoriosDropdown", data: { toggle: "dropdown" }, role: "menu", 'aria-expanded' => "false" %>
+              <ul class="dropdown-menu" aria-labelledby="relatoriosDropdown">
+                <li> <%= link_to "Geral", relgeral_path, class: "dropdown-item h6" %> </li>
+                <li> <%= link_to "Usuarios", rel_usuarios_path, class: "dropdown-item h6" %> </li>
+              </ul>
+            </li>
           <% end %>
-          
-          <% if session[:admingeral] == true %>    
+                   
+
+          <% if session[:admingeral] == true %>           
             <li class="navbar-brand mb-0 h1"> <%= link_to "Perfil ", perfils_path, class: "nav-link" %></li>          
           <% end %>
           

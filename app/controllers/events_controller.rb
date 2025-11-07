@@ -588,8 +588,16 @@ class EventsController < ApplicationController
       events.end_date, events.timefim, events.descricao, events.usuario_id, salas.nome, usuarios.nomeUsuario ")
     end 
 
-
   end 
+
+  def rel_usuarios
+    @usuario = params[:usuario]
+    if @usuario != ""
+      @resultado = Event.joins(:sala).joins(:usuario)
+      .where(usuario_id: @usuario)
+      .select("salas.nome, CONCAT(events.title, ' - ', events.registropara) AS title, events.start_date, events.timeini, events.end_date, events.timefim, events.descricao, usuarios.nomeUsuario")
+    end
+  end
 
 
   def salvaAgendamento(start_date, end_date, horaini, horafim, event_id)
